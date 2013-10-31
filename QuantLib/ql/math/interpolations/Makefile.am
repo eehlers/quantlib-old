@@ -20,6 +20,7 @@ this_include_HEADERS = \
 	loginterpolation.hpp \
 	mixedinterpolation.hpp \
 	multicubicspline.hpp \
+	multipleregimeinterpolation.hpp \
 	sabrinterpolation.hpp
 
 all.hpp: Makefile.am
