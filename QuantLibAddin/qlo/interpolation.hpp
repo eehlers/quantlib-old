@@ -26,6 +26,7 @@
 #include <ql/math/interpolations/cubicinterpolation.hpp>
 #include <ql/math/interpolations/sabrinterpolation.hpp>
 #include <ql/math/interpolations/abcdinterpolation.hpp>
+#include <ql/math/interpolations/multipleregimeinterpolation.hpp>
 
 #include <ql/patterns/lazyobject.hpp>
 #include <ql/quote.hpp>
@@ -108,6 +109,16 @@ namespace QuantLibAddin {
         //}
       protected:
         boost::shared_ptr<QuantLib::MixedLinearCubicInterpolation> qlMixedLinearCubicInterpolation_;
+    };
+    
+    class MultipleRegimeInterpolation : public Interpolation {
+      public:
+        MultipleRegimeInterpolation(
+            const boost::shared_ptr<ObjectHandler::ValueObject>& properties,
+            const std::vector<QuantLib::Real>& x,
+            const std::vector<QuantLib::Handle<QuantLib::Quote> >& y,
+            const std::vector<boost::shared_ptr<QuantLib::Interpolation> >& L,
+            bool permanent);
     };
 
     class CubicInterpolation : public Interpolation {

@@ -145,6 +145,22 @@ namespace QuantLibAddin {
             dynamic_pointer_cast<QuantLib::MixedLinearCubicInterpolation>(libraryObject_);
     }
 
+    MultipleRegimeInterpolation::MultipleRegimeInterpolation(
+        const shared_ptr<ValueObject>& properties,
+        const vector<Real>& x,
+        const vector<Handle<Quote> >& yh,
+        const std::vector<boost::shared_ptr<QuantLib::Interpolation> >& L,
+        bool permanent)
+    : Interpolation(properties, x, yh, permanent)
+    {
+        libraryObject_ = shared_ptr<QuantLib::Extrapolator>(new
+            QuantLib::MultipleRegimeInterpolation(
+                                                x_.begin(), x_.end(),
+                                                y_.begin(), L));
+        qlInterpolation_ =
+            dynamic_pointer_cast<QuantLib::Interpolation>(libraryObject_);
+    }
+
     CubicInterpolation::CubicInterpolation(
         const shared_ptr<ValueObject>& properties,
         const vector<Real>& x,

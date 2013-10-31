@@ -1105,6 +1105,37 @@
       </ParameterList>
     </Constructor>
 
+      <!-- MixedLinearCubicInterpolation constructor and interface -->
+
+      <Constructor name='qlMultipleRegimeInterpolation'>
+          <libraryFunction>MultipleRegimeInterpolation</libraryFunction>
+          <SupportedPlatforms>
+              <!--SupportedPlatform name='Excel' calcInWizard='false'/-->
+              <SupportedPlatform name='Excel'/>
+              <SupportedPlatform name='Cpp'/>
+          </SupportedPlatforms>
+          <ParameterList>
+              <Parameters>
+                  <Parameter name='XArray' exampleValue ='1.0,2.0,3.0,4.0,5.0' >
+                      <type>QuantLib::Real</type>
+                      <tensorRank>vector</tensorRank>
+                      <description>x array.</description>
+                  </Parameter>
+                  <Parameter name='YArray' exampleValue ='1.0,8.0,27.0,64.0,125.0' >
+                      <type>QuantLib::Quote</type>
+                      <superType>libToHandle</superType>
+                      <tensorRank>vector</tensorRank>
+                      <description>y array.</description>
+                  </Parameter>
+                  <Parameter name='L'>
+                      <type>QuantLib::Interpolation</type>
+                      <tensorRank>vector</tensorRank>
+                      <description>list of interpolators.</description>
+                  </Parameter>
+              </Parameters>
+          </ParameterList>
+      </Constructor>
+
   </Functions>
 
 </Category>
