@@ -152,6 +152,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				AdditionalDependencies="psapi.lib"
 				OutputFile="..\lib\xlsdk-vc90-mt-sgd.lib"
 				SuppressStartupBanner="true"
 			/>
@@ -345,6 +346,14 @@
 		</File>
 		<File
 			RelativePath="framewrk.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\x.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\x.hpp"
 			>
 		</File>
 		<File

@@ -24,6 +24,7 @@
 #include <ohxl/conversions/all.hpp>
 #include <ohxl/utilities/xlutilities.hpp>
 #include <sstream>
+//#include <vld.h>
 
 // Instantiate the ObjectHandler Repository
 ObjectHandler::RepositoryXL repositoryXL;

@@ -29,6 +29,7 @@
 #include <ohxl/xloper.hpp>
 #include <map>
 #include <algorithm>
+#include <xlsdk/x.hpp>
 
 #define XLL_DEC extern "C"
 
@@ -112,6 +113,7 @@ XLL_DEC long *ohTrigger(
 }
 
 XLL_DEC long *ohFunctionCount() {
+    AA a("ohFunctionCount");
     static long returnValue = FUNCTION_COUNT;
     return &returnValue;
 }
@@ -410,6 +412,8 @@ undocumented Excel bug.
 */
 
 XLL_DEC XLOPER *ohRangeRetrieveError(XLOPER *xRange) {
+    //return 0;
+    AA a("ohRangeRetrieveError");
     try {
         XLOPER xTemp;
         Excel(xlCoerce, &xTemp, 1, xRange);
@@ -425,6 +429,8 @@ XLL_DEC XLOPER *ohRangeRetrieveError(XLOPER *xRange) {
 }
 
 XLL_DEC char *ohRetrieveErrorImpl(XLOPER *xRange) {
+    //return 0;
+    AA a("ohRetrieveErrorImpl");
     try {
         std::string returnValue =
             ObjectHandler::RepositoryXL::instance().retrieveError(xRange);
@@ -440,6 +446,7 @@ XLL_DEC char *ohRetrieveErrorImpl(XLOPER *xRange) {
 // Usually the amount of available stack space exceeds USHRT_MAX (65535).  So normally this
 // function always returns 65535.
 XLL_DEC long *ohStack() {
+    AA a("ohStack");
     static long returnValue;
     XLOPER xRes;
     Excel4(xlStack, &xRes, 0);

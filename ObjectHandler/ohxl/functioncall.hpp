@@ -28,6 +28,7 @@
 #include <ohxl/ohxldefines.hpp>
 #include <ohxl/xloper.hpp>
 #include <boost/shared_ptr.hpp>
+#include <xlsdk/x.hpp>
 
 namespace ObjectHandler {
 
@@ -134,6 +135,7 @@ namespace ObjectHandler {
         CallerDimensions::Type callerDimensions_;
         CallerType::Type callerType_;
         bool error_;
+        AA a;
     };
 
 }

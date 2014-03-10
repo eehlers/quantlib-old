@@ -32,7 +32,8 @@ namespace ObjectHandler {
     FunctionCall::FunctionCall(const std::string functionName) :
             functionName_(functionName), 
             callerDimensions_(CallerDimensions::Uninitialized),
-            error_(false) {
+            error_(false),
+            a(functionName_.c_str()){
         OH_REQUIRE(!instance_, "Multiple attempts to initialize global FunctionCall object");
         instance_ = this;
 
@@ -48,6 +49,7 @@ namespace ObjectHandler {
         } else {
             callerType_ = CallerType::Unknown;
         }
+        xx("fc", refStr_.c_str());
     }
 
     FunctionCall::~FunctionCall() {
@@ -187,4 +189,3 @@ namespace ObjectHandler {
     }
 
 }
-

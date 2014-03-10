@@ -152,6 +152,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				AdditionalDependencies="psapi.lib"
 				OutputFile="..\..\lib\ObjectHandler-xllib-vc90-mt-s-1_4_0.lib"
 				SuppressStartupBanner="true"
 			/>
@@ -310,6 +311,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				AdditionalDependencies="psapi.lib"
 				OutputFile="..\..\lib\ObjectHandler-xllib-vc90-mt-sgd-1_4_0.lib"
 				SuppressStartupBanner="true"
 			/>

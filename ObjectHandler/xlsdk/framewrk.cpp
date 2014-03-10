@@ -3,11 +3,13 @@
 #include <windows.h>
 #include <xlsdk/xlcall.h>
 #include <xlsdk/framewrk.hpp>
+#include <xlsdk/x.hpp>
 #include <sstream>
 #include <exception>
 
 char vMemBlock[MEMORYSIZE]; // Memory for temporary XLOPERs
 int vOffsetMemBlock=0;      // Offset of next memory block to allocate
+
 
 ///***************************************************************************
 // GetTempMemory()
@@ -53,6 +55,7 @@ int vOffsetMemBlock=0;      // Offset of next memory block to allocate
 
 LPSTR GetTempMemory(int cBytes)
 {
+    AA a("GetTempMemory");
     LPSTR lpMemory;
 
     if (vOffsetMemBlock + cBytes > MEMORYSIZE)
@@ -91,32 +94,39 @@ LPSTR GetTempMemory(int cBytes)
 
 void FreeAllTempMemory(void)
 {
+    AA a("FreeAllTempMemory");
     vOffsetMemBlock = 0;
 }
 
 void Excel(int xlfn, LPXLOPER pxResult, int count, ...) {
+    std::ostringstream s;
+    s << "Excel " << xlfn << " " << count;
+    static std::string s2;
+    s2 = s.str();
+    AA a(s2.c_str());
     int xlret = Excel4v(xlfn, pxResult, count, (LPXLOPER FAR *)(&count+1));
     FreeAllTempMemory();
 
     if (xlret != xlretSuccess) {
-        std::ostringstream msg;
-        msg << "Error in call to Excel: (";
-        if (xlfn & xlCommand)       msg << "xlCommand | ";
-        if (xlfn & xlSpecial)       msg << "xlSpecial | ";
-        if (xlfn & xlIntl)          msg << "xlIntl | ";
-        if (xlfn & xlPrompt)        msg << "xlPrompt | ";
-        msg << (xlfn & 0x0FFF) << ") callback failed: ";
-        if (xlret & xlretAbort)     msg << " Macro Halted ";
-        if (xlret & xlretInvXlfn)   msg << " Invalid Function Number "
-            "- this error may occur when a function which is not registered as a macro "
-            "(trailing # in the argument list passed to xlfRegister) "
-            "attempts to call a function restricted to macros e.g. xlfCaller.";
-        if (xlret & xlretInvCount)  msg << " Invalid Number of Arguments ";
-        if (xlret & xlretInvXloper) msg << " Invalid XLOPER ";
-        if (xlret & xlretStackOvfl) msg << " Stack Overflow ";
-        if (xlret & xlretFailed)    msg << " Command failed ";
-        if (xlret & xlretUncalced)  msg << " Uncalced cell ";
-        throw std::exception(msg.str().c_str());
+        //std::ostringstream msg;
+        //msg << "Error in call to Excel: (";
+        //if (xlfn & xlCommand)       msg << "xlCommand | ";
+        //if (xlfn & xlSpecial)       msg << "xlSpecial | ";
+        //if (xlfn & xlIntl)          msg << "xlIntl | ";
+        //if (xlfn & xlPrompt)        msg << "xlPrompt | ";
+        //msg << (xlfn & 0x0FFF) << ") callback failed: ";
+        //if (xlret & xlretAbort)     msg << " Macro Halted ";
+        //if (xlret & xlretInvXlfn)   msg << " Invalid Function Number "
+        //    "- this error may occur when a function which is not registered as a macro "
+        //    "(trailing # in the argument list passed to xlfRegister) "
+        //    "attempts to call a function restricted to macros e.g. xlfCaller.";
+        //if (xlret & xlretInvCount)  msg << " Invalid Number of Arguments ";
+        //if (xlret & xlretInvXloper) msg << " Invalid XLOPER ";
+        //if (xlret & xlretStackOvfl) msg << " Stack Overflow ";
+        //if (xlret & xlretFailed)    msg << " Command failed ";
+        //if (xlret & xlretUncalced)  msg << " Uncalced cell ";
+        //throw std::exception(msg.str().c_str());
+        throw std::exception();
     }
 
 }
@@ -142,6 +152,7 @@ void Excel(int xlfn, LPXLOPER pxResult, int count, ...) {
 
 LPXLOPER TempNum(double d)
 {
+    AA a("TempNum");
     LPXLOPER lpx;
 
     lpx = (LPXLOPER) GetTempMemory(sizeof(XLOPER));
@@ -223,6 +234,7 @@ LPXLOPER TempStr(LPSTR lpstr)
 */
 LPXLOPER TempStrNoSize(LPSTR lpstr)
 {
+    AA a("TempStrNoSize");
     LPXLOPER lpx;
 
     lpx = (LPXLOPER) GetTempMemory(sizeof(XLOPER));
@@ -239,6 +251,7 @@ LPXLOPER TempStrNoSize(LPSTR lpstr)
 }
 
 LPXLOPER TempStrStl(const std::string &s) {
+    AA a("TempStrStl");
     LPXLOPER lpx;
 
     lpx = (LPXLOPER) GetTempMemory(sizeof(XLOPER));
@@ -278,6 +291,7 @@ LPXLOPER TempStrStl(const std::string &s) {
 
 LPXLOPER TempBool(int b)
 {
+    AA a("TempBool");
     LPXLOPER lpx;
 
     lpx = (LPXLOPER) GetTempMemory(sizeof(XLOPER));
@@ -315,6 +329,7 @@ LPXLOPER TempBool(int b)
 
 LPXLOPER TempInt(short int i)
 {
+    AA a("TempInt");
     LPXLOPER lpx;
 
     lpx = (LPXLOPER) GetTempMemory(sizeof(XLOPER));
@@ -355,6 +370,7 @@ LPXLOPER TempInt(short int i)
 
 LPXLOPER TempErr(WORD err)
 {
+    AA a("TempErr");
     LPXLOPER lpx;
 
     lpx = (LPXLOPER) GetTempMemory(sizeof(XLOPER));
@@ -397,6 +413,7 @@ LPXLOPER TempErr(WORD err)
 
 LPXLOPER TempActiveRef(WORD rwFirst, WORD rwLast, BYTE colFirst, BYTE colLast)
 {
+    AA a("TempActiveRef");
     LPXLOPER lpx;
     LPXLMREF lpmref;
     int wRet;
@@ -455,6 +472,7 @@ LPXLOPER TempActiveRef(WORD rwFirst, WORD rwLast, BYTE colFirst, BYTE colLast)
 
 LPXLOPER TempActiveCell(WORD rw, BYTE col)
 {
+    AA a("TempActiveCell");
     return TempActiveRef(rw, rw, col, col);
 }
 
@@ -485,6 +503,7 @@ LPXLOPER TempActiveCell(WORD rw, BYTE col)
 
 LPXLOPER TempActiveRow(WORD rw)
 {
+    AA a("TempActiveRow");
     return TempActiveRef(rw, rw, 0, 0xFF);
 }
 
@@ -513,6 +532,7 @@ LPXLOPER TempActiveRow(WORD rw)
 
 LPXLOPER TempActiveColumn(BYTE col)
 {
+    AA a("TempActiveColumn");
     return TempActiveRef(0, 0x3FFF, col, col);
 }
 
@@ -538,6 +558,7 @@ LPXLOPER TempActiveColumn(BYTE col)
 
 LPXLOPER TempMissing(void)
 {
+    AA a("TempMissing");
     LPXLOPER lpx;
 
     lpx = (LPXLOPER) GetTempMemory(sizeof(XLOPER));
@@ -554,6 +575,7 @@ LPXLOPER TempMissing(void)
 
 LPXLOPER TempNil()
 {
+    AA a("TempNil");
     LPXLOPER lpx;
 
     lpx = (LPXLOPER) GetTempMemory(sizeof(XLOPER));
@@ -567,4 +589,3 @@ LPXLOPER TempNil()
 
     return lpx;
 }
-

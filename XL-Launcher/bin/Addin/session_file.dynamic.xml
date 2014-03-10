@@ -1,0 +1,28 @@
+<Environment>
+  <GlobalAddins>
+    <GlobalAddin name="Reuters" enabled="False" path="C:\Program Files\Reuters\PowerPlus\PPP.xla" />
+    <GlobalAddin name="Bloomberg" enabled="False" path="C:\blp\API\dde\BlpMain.xla" />
+    <GlobalAddin name="Oracle" enabled="False" path="C:\Program Files\Oracle\Oracle.xla" />
+  </GlobalAddins>
+  <Frameworks>
+    <Framework name="QuantLibXL" displayName="New QLXL Curve Framework" fileName="00 QuantLibXL">
+      <Components>
+        <Component path="C:\Users\erik\Documents\repos\quantlib\ObjectHandler\xll\ObjectHandler-xll-vc90-mt-gd-1_4_0.xll" />
+        <Component path="C:\Users\erik\Documents\repos\quantlib\QuantLibXL\xll\QuantLibXLDynamic-vc90-mt-gd-1_4_0.xll" />
+        <Component path="C:\Users\erik\Documents\repos\quantlib\QuantLibXL\framework\QuantLibXL.xla" />
+      </Components>
+      <StartupParameters>
+        <StartupParameter name="Environment" value="Fixed Income2" />
+        <StartupParameter name="Root Path" value="C:\Users\erik\Documents\repos\quantlib\QuantLibXL\" />
+        <StartupParameter name="Set Evaluation Date" value="False" />
+        <StartupParameter name="Evaluation Date" value="2014-01-17" />
+        <StartupParameter name="Default Currency" value="EUR" />
+        <StartupParameter name="Open Main Checks" value="False" />
+        <StartupParameter name="Open Contributor" value="False" />
+        <StartupParameter name="Bootstrap Yield Curves" value="True" />
+        <StartupParameter name="Real Time Feed" value="Reuters" />
+        <StartupParameter name="Market Data" value="Static" />
+      </StartupParameters>
+    </Framework>
+  </Frameworks>
+</Environment>

@@ -34,6 +34,7 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include <xlsdk/x.hpp>
 
 namespace ObjectHandler {
 
@@ -60,9 +61,13 @@ namespace ObjectHandler {
         Object(
             const boost::shared_ptr<ValueObject>& properties = boost::shared_ptr<ValueObject>(),
             bool permanent = false)
-            : mProps(properties), permanent_(permanent) {}
+            : mProps(properties), permanent_(permanent) {
+            xx("NEW", mProps->objectId().c_str());
+        }
         //! Empty virtual destructor.
-        virtual ~Object() {}
+        virtual ~Object() {
+            xx("DEL", mProps->objectId().c_str());
+        }
         //@}
 
         //! \name ValueObjects
@@ -119,6 +124,7 @@ namespace ObjectHandler {
         Object& operator= (const Object&);
         // Copy ctor declared but not implemented - copy construction is not supported.
         Object(const Object&);
+
     };
 
     inline std::set<std::string> Object::propertyNames() const {

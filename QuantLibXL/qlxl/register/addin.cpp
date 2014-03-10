@@ -1,4 +1,6 @@
-
+//#define _CRTDBG_MAP_ALLOC
+//#include <stdlib.h>
+//#include <crtdbg.h>
 /* 
  Copyright (C) 2005, 2006, 2007, 2008 Eric Ehlers
 
@@ -21,6 +23,8 @@
 #include <qlo/enumerations/register/register_all.hpp>
 #include <qlo/serialization/serializationfactory.hpp>
 #include <qlxl/register/register_all.hpp>
+//#include <vld.h>
+#include <xlsdk/x.hpp>
 
 /* Use BOOST_MSVC instead of _MSC_VER since some other vendors
    (Metrowerks, for example) also #define _MSC_VER
@@ -66,12 +70,14 @@ void init() {
 }
 
 DLLEXPORT void xlAutoFree(XLOPER *px) {
+    AA a("xlAutoFree");
 
     freeOper(px);
 
 }
 
 DLLEXPORT XLOPER *xlAddInManagerInfo(XLOPER *xlAction) {
+    AA a("xlAddInManagerInfo");
 
 	init();
 
@@ -95,6 +101,9 @@ DLLEXPORT XLOPER *xlAddInManagerInfo(XLOPER *xlAction) {
 }
 
 DLLEXPORT int xlAutoOpen() {
+    AA a("xlAutoOpen");
+
+    _CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
 
 	init();
 
@@ -138,6 +147,7 @@ DLLEXPORT int xlAutoOpen() {
 }
 
 DLLEXPORT int xlAutoClose() {
+    AA a("xlAutoClose");
 
     static XLOPER xDll;
 
@@ -162,6 +172,9 @@ DLLEXPORT int xlAutoClose() {
 
         Excel(xlFree, 0, 1, &xDll);
 
+        //_CrtSetReportMode( _CRT_ERROR, _CRTDBG_MODE_DEBUG );
+    //_CrtDumpMemoryLeaks();
+
         return 1;
 
     } catch (const std::exception &e) {
@@ -178,6 +191,5 @@ DLLEXPORT int xlAutoClose() {
         return 0;
 
     }
-
 }
 
