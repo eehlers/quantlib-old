@@ -7,12 +7,12 @@
   <Frameworks>
     <Framework name="QuantLibXL" displayName="New QLXL Curve Framework" fileName="00 QuantLibXL">
       <Components>
-        <Component path="C:\Users\erik\Documents\repos\quantlib.memory\QuantLibXL\xll\QuantLibXL-vc90-mt-sgd-1_4_0.xll" />
-        <Component path="C:\Users\erik\Documents\repos\quantlib.memory\QuantLibXL\framework\QuantLibXL.xla" />
+        <Component path="C:\Users\erik\Documents\repos\quantlib.memleak\QuantLibXL\xll\QuantLibXL-vc90-mt-sgd-1_4_0.xll" />
+        <Component path="C:\Users\erik\Documents\repos\quantlib.memleak\QuantLibXL\framework\QuantLibXL.xla" />
       </Components>
       <StartupParameters>
         <StartupParameter name="Environment" value="Fixed Income2" />
-        <StartupParameter name="Root Path" value="C:\Users\erik\Documents\repos\quantlib.memory\QuantLibXL\" />
+        <StartupParameter name="Root Path" value="C:\Users\erik\Documents\repos\quantlib.memleak\QuantLibXL\" />
         <StartupParameter name="Set Evaluation Date" value="False" />
         <StartupParameter name="Evaluation Date" value="2014-01-17" />
         <StartupParameter name="Default Currency" value="EUR" />
