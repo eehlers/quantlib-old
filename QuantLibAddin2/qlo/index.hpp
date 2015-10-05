@@ -36,6 +36,7 @@ namespace QuantLibAddin {
 
     class Index : public reposit::LibraryObject<QuantLib::Index> {
       public:
+        typedef QuantLib::Index lib_type;
         RP_LIB_CTOR(Index, QuantLib::Index);
         void addFixings(const std::vector<QuantLib::Date>& dates,
                         const std::vector<QuantLib::Real>& values,

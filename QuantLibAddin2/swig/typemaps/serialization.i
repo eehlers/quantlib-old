@@ -15,8 +15,7 @@
 %typemap(rp_tm_scr_cnvt) QuantLib::Schedule const & %{
     std::string $1_name_str =
         reposit::convert2<std::string>(valueObject->getProperty("$1_name"));
-    RP_GET_REFERENCE($1_name_obj, $1_name_str,
-        QuantLibAddin::Schedule, QuantLib::Schedule)
+    RP_GET_REFERENCE2($1_name_obj, $1_name_str, QuantLibAddin::Schedule)
     const QuantLib::Schedule &$1_name = *$1_name_obj;
     valueObject->processPrecedentID($1_name_str);
 %}

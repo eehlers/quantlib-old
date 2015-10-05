@@ -35,6 +35,7 @@ namespace QuantLib {
     class YieldTermStructure;
     class IborIndex;
     class Quote;
+    class OvernightIndex;
 
     template <class T>
     class Handle;
@@ -42,8 +43,19 @@ namespace QuantLib {
 
 namespace QuantLibAddin {
 
-    RP_OBJ_CLASS(IborIndex, InterestRateIndex);
-    RP_OBJ_CLASS(OvernightIndex, IborIndex);
+    //RP_OBJ_CLASS(IborIndex, InterestRateIndex);
+    class IborIndex : public InterestRateIndex {
+      public:
+        typedef QuantLib::IborIndex lib_type;
+        RP_OBJ_CTOR(IborIndex, InterestRateIndex);
+    };
+
+    //RP_OBJ_CLASS(OvernightIndex, IborIndex);
+    class OvernightIndex : public IborIndex {
+      public:
+        typedef QuantLib::OvernightIndex lib_type;
+        RP_OBJ_CTOR(OvernightIndex, IborIndex);
+    };
 
     //class IborIndex : public InterestRateIndex {
     //  public:

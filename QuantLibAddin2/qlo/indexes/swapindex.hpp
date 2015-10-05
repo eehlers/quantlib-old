@@ -34,6 +34,7 @@ namespace QuantLib {
     class DayCounter;
     class IborIndex;
     class YieldTermStructure;
+    class SwapIndex;
 
     template <class T>
     class Handle;
@@ -43,6 +44,7 @@ namespace QuantLibAddin {
 
     class SwapIndex : public InterestRateIndex {
       public:
+        typedef QuantLib::SwapIndex lib_type;
         enum FixingType {Isda,
                          IsdaFixA,
                          IsdaFixB,

@@ -25,11 +25,16 @@
 
 #include <qlo/indexes/iborindex.hpp>
 
+namespace QuantLib {
+    class Euribor;
+    class Eonia;
+};
+
 namespace QuantLibAddin {
 
-    class Euribor : 
-        public IborIndex {
+    class Euribor : public IborIndex {
     public:
+        typedef QuantLib::Euribor lib_type;
         Euribor(
             const boost::shared_ptr<reposit::ValueObject>& properties,
             // BEGIN typemap rp_tm_default
@@ -50,6 +55,7 @@ namespace QuantLibAddin {
     class Eonia : 
         public OvernightIndex {
     public:
+        typedef QuantLib::Eonia lib_type;
         Eonia(
             const boost::shared_ptr<reposit::ValueObject>& properties,
             // BEGIN typemap rp_tm_default

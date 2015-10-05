@@ -25,9 +25,18 @@
 
 #include <qlo/index.hpp>
 
+namespace QuantLib {
+    class InterestRateIndex;
+};
+
 namespace QuantLibAddin {
 
-    RP_OBJ_CLASS(InterestRateIndex, Index);
+    //RP_OBJ_CLASS(InterestRateIndex, Index);
+    class InterestRateIndex : public Index {
+      public:
+        typedef QuantLib::InterestRateIndex lib_type;
+        RP_OBJ_CTOR(InterestRateIndex, Index);
+    };
 
     //class InterestRateIndex : public Index {
     //    public:

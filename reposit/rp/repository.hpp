@@ -110,6 +110,24 @@ namespace reposit {
             the Repository class for platform-specific functionality.
         */
         virtual boost::shared_ptr<Object> retrieveObjectImpl(const std::string &objectID);
+
+        //! Template member function to retrieve the Object with given ID.
+        /*! Retrieve the object with the given ID and downcast it to the desired type.
+            Throw an exception if no Object exists with that ID.
+            This template passes the work off to function retrieveObjectImpl which
+            may be overridden in derived classes.
+        */
+        template <class T>
+        void retrieveLibraryObject(boost::shared_ptr<typename T::lib_type> &ret,
+                            const std::string &id) {
+            boost::shared_ptr<Object> object = retrieveObjectImpl(id);
+            boost::shared_ptr<T> addinObject = boost::dynamic_pointer_cast<T>(object);
+            RP_REQUIRE(addinObject, "Error retrieving object with id '"
+                << id << "' - unable to convert reference to type '"
+                << typeid(T).name() << "' found instead '"
+                << typeid(*object).name() << "'");
+            addinObject->getLibraryObject(ret);
+        }
         
         //! Delete the object with the given ID.
         /*! Delete the object regardless of whether or not it is permanent.

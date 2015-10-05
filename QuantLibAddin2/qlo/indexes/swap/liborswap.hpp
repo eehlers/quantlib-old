@@ -26,10 +26,15 @@
 #include <qlo/indexes/swapindex.hpp>
 #include <ql/currency.hpp>
 
+namespace QuantLib {
+    class LiborSwap;
+};
+
 namespace QuantLibAddin {
 
     class LiborSwap : public SwapIndex {
       public:
+        typedef QuantLib::LiborSwap lib_type;
         LiborSwap(
             const boost::shared_ptr<reposit::ValueObject>& properties,
             const QuantLib::Currency& currency,

@@ -25,11 +25,15 @@
 
 #include <qlo/indexes/swapindex.hpp>
 
+namespace QuantLib {
+    class EuriborSwapIsdaFixA;
+};
+
 namespace QuantLibAddin {
 
-    class EuriborSwapIsdaFixA : 
-        public SwapIndex {
+    class EuriborSwapIsdaFixA : public SwapIndex {
     public:
+        typedef QuantLib::EuriborSwapIsdaFixA lib_type;
         EuriborSwapIsdaFixA(
             const boost::shared_ptr<reposit::ValueObject>& properties,
             // BEGIN typemap rp_tm_default

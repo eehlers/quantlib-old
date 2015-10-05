@@ -27,40 +27,58 @@
         QuantLibAddin::cppToLibrary($1_name, $1_name_cnv);
 %}
 
+//%typemap(rp_tm_xll_cnvt) QuantLib::Date %{
+//        $rp_typedef_base $1_name_cnv = reposit::convert2<$rp_typedef_base>(
+//            reposit::ConvertOper(*$1_name), "$1_name", $rp_typedef_base());
+//
+//        reposit::property_t $1_name_cnv2 = reposit::convert2<reposit::property_t>(
+//            reposit::ConvertOper(*$1_name));
+//%}
+
 %typemap(rp_tm_xll_cnvt) QuantLib::Date %{
-        $rp_typedef_base $1_name_cnv = reposit::convert2<$rp_typedef_base>(
-            reposit::ConvertOper(*$1_name), "$1_name", $rp_typedef_base());
+        $1_type $1_name_cnv = reposit::convert2<$1_type>(
+            reposit::ConvertOper(*$1_name), "$1_name", $1_type());
 
         reposit::property_t $1_name_cnv2 = reposit::convert2<reposit::property_t>(
             reposit::ConvertOper(*$1_name));
 %}
 
+//%typemap(rp_tm_xll_cnvt) QuantLib::Date const & %{
+//        $rp_typedef_base $1_name_cnv = reposit::convert2<$rp_typedef_base>(
+//            reposit::ConvertOper(*$1_name), "$1_name", $rp_typedef_base());
+//
+//        reposit::property_t $1_name_cnv2 = reposit::convert2<reposit::property_t>(
+//            reposit::ConvertOper(*$1_name));
+//%}
+
 %typemap(rp_tm_xll_cnvt) QuantLib::Date const & %{
-        $rp_typedef_base $1_name_cnv = reposit::convert2<$rp_typedef_base>(
-            reposit::ConvertOper(*$1_name), "$1_name", $rp_typedef_base());
+        $1_type $1_name_cnv = reposit::convert2<$1_type>(
+            reposit::ConvertOper(*$1_name), "$1_name", $1_type());
 
         reposit::property_t $1_name_cnv2 = reposit::convert2<reposit::property_t>(
             reposit::ConvertOper(*$1_name));
 %}
 
 %typemap(rp_tm_xll_cnvt) QuantLib::Schedule const & %{
-        RP_GET_REFERENCE($1_name_cnv, $1_name,
-            QuantLibAddin::Schedule, QuantLib::Schedule)
+        RP_GET_REFERENCE2($1_name_cnv, $1_name, QuantLibAddin::Schedule)
 %}
 
+//%typemap(rp_tm_xll_cnvt) QuantLib::Calendar const & %{
+//        $rp_typedef_base $1_name_enm =
+//            reposit::Create<$rp_typedef_base>()($1_name);
+//%}
+
 %typemap(rp_tm_xll_cnvt) QuantLib::Calendar const & %{
-        $rp_typedef_base $1_name_enm =
-            reposit::Create<$rp_typedef_base>()($1_name);
+        $1_type $1_name_enm =
+            reposit::Create<$1_type>()($1_name);
 %}
 
 %typemap(rp_tm_xll_cnvt) QuantLib::OptimizationMethod & %{
-        RP_GET_REFERENCE($1_name_cnv, $1_name,
-            QuantLibAddin::OptimizationMethod, QuantLib::OptimizationMethod)
+        RP_GET_REFERENCE2($1_name_cnv, $1_name, QuantLibAddin::OptimizationMethod)
 %}
 
 %typemap(rp_tm_xll_cnvt) QuantLib::EndCriteria const & %{
-        RP_GET_REFERENCE($1_name_cnv, $1_name,
-            QuantLibAddin::EndCriteria, QuantLib::EndCriteria)
+        RP_GET_REFERENCE2($1_name_cnv, $1_name, QuantLibAddin::EndCriteria)
 %}
 
 %typemap(rp_tm_xll_cnvt) std::vector<QuantLib::Natural> const & %{
@@ -75,7 +93,7 @@
 %}
 
 %typemap(rp_tm_xll_cnvt) QuantLib::Handle<QuantLib::Quote> const & %{
-        RP_GET_REFERENCE($1_name_get, $1_name, QuantLibAddin::Quote, QuantLib::Quote)
+        RP_GET_REFERENCE2($1_name_get, $1_name, QuantLibAddin::Quote)
         QuantLib::Handle<QuantLib::Quote> $1_name_handle =
             QuantLib::Handle<QuantLib::Quote>($1_name_get);
 %}
@@ -93,7 +111,7 @@
 %}
 
 %typemap(rp_tm_xll_cnvt) QuantLib::Handle<QuantLib::BlackVolTermStructure> const & %{
-        RP_GET_REFERENCE($1_name_get, $1_name, QuantLibAddin::BlackConstantVol, QuantLib::BlackVolTermStructure)
+        RP_GET_REFERENCE2($1_name_get, $1_name, QuantLibAddin::BlackConstantVol)
         QuantLib::Handle<QuantLib::BlackVolTermStructure> $1_name_handle =
             QuantLib::Handle<QuantLib::BlackVolTermStructure>($1_name_get);
 %}

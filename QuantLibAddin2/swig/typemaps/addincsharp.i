@@ -19,40 +19,40 @@
 %}
 
 // We would like to define one typemap to handle every occurrence of
-// RP_GET_REFERENCE.  But for each type, the from and to types are different.
+// RP_GET_REFERENCE2.  But for each type, the from and to types are different.
 // We can specify those with %feature directives in the function *.i files but
 // we would need to write some code so for now a different typemap for each type.
 %typemap(rp_tm_csh_cnvt) boost::shared_ptr<QuantLib::StrikedTypePayoff> const & %{
-        RP_GET_REFERENCE($1_name_get, $1_name, QuantLibAddin::PlainVanillaPayoff, QuantLib::StrikedTypePayoff)
+        RP_GET_REFERENCE2($1_name_get, $1_name, QuantLibAddin::PlainVanillaPayoff)
 %}
 
 %typemap(rp_tm_csh_cnvt) boost::shared_ptr<QuantLib::Exercise> const & %{
-        RP_GET_REFERENCE($1_name_get, $1_name, QuantLibAddin::EuropeanExercise, QuantLib::Exercise)
+        RP_GET_REFERENCE2($1_name_get, $1_name, QuantLibAddin::EuropeanExercise)
 %}
 
 %typemap(rp_tm_csh_cnvt) boost::shared_ptr<QuantLib::GeneralizedBlackScholesProcess> const & %{
-        RP_GET_REFERENCE($1_name_get, $1_name, QuantLibAddin::BlackScholesMertonProcess, QuantLib::GeneralizedBlackScholesProcess)
+        RP_GET_REFERENCE2($1_name_get, $1_name, QuantLibAddin::BlackScholesMertonProcess)
 %}
 
 %typemap(rp_tm_csh_cnvt) boost::shared_ptr<QuantLib::PricingEngine> const & %{
-        RP_GET_REFERENCE($1_name_get, $1_name, QuantLibAddin::AnalyticEuropeanEngine, QuantLib::PricingEngine)
+        RP_GET_REFERENCE2($1_name_get, $1_name, QuantLibAddin::AnalyticEuropeanEngine)
 %}
 
-// Handles - same as RP_GET_REFERENCE above - for now a separate typemap for each type.
+// Handles - same as RP_GET_REFERENCE2 above - for now a separate typemap for each type.
 %typemap(rp_tm_csh_cnvt) QuantLib::Handle<QuantLib::Quote> const & %{
-        RP_GET_REFERENCE($1_name_get, $1_name, QuantLibAddin::SimpleQuote, QuantLib::Quote)
+        RP_GET_REFERENCE2($1_name_get, $1_name, QuantLibAddin::SimpleQuote)
         QuantLib::Handle<QuantLib::Quote> $1_name_handle =
             QuantLib::Handle<QuantLib::Quote>($1_name_get);
 %} 
 
 %typemap(rp_tm_csh_cnvt) QuantLib::Handle<QuantLib::YieldTermStructure> const & %{
-        RP_GET_REFERENCE($1_name_get, $1_name, QuantLibAddin::FlatForward, QuantLib::YieldTermStructure)
+        RP_GET_REFERENCE2($1_name_get, $1_name, QuantLibAddin::FlatForward)
         QuantLib::Handle<QuantLib::YieldTermStructure> $1_name_handle =
             QuantLib::Handle<QuantLib::YieldTermStructure>($1_name_get);
 %} 
 
 %typemap(rp_tm_csh_cnvt) QuantLib::Handle<QuantLib::BlackVolTermStructure> const & %{
-        RP_GET_REFERENCE($1_name_get, $1_name, QuantLibAddin::BlackConstantVol, QuantLib::BlackVolTermStructure)
+        RP_GET_REFERENCE2($1_name_get, $1_name, QuantLibAddin::BlackConstantVol)
         QuantLib::Handle<QuantLib::BlackVolTermStructure> $1_name_handle =
             QuantLib::Handle<QuantLib::BlackVolTermStructure>($1_name_get);
 %} 

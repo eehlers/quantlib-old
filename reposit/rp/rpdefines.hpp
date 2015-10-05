@@ -101,6 +101,11 @@
     boost::shared_ptr<LIBRARY_CLASS> NAME; \
     NAME ## temp->getLibraryObject(NAME);
 
+//! Get a shared pointer to the library object referenced by an Object.
+#define RP_GET_REFERENCE2( NAME, ID, OBJECT_CLASS ) \
+    boost::shared_ptr<typename OBJECT_CLASS::lib_type> NAME; \
+    reposit::Repository::instance().retrieveLibraryObject<OBJECT_CLASS>(NAME, ID);
+
 //! Like RP_GET_REFERENCE but only attempt retrieval if id supplied.
 #define RP_GET_REFERENCE_DEFAULT( NAME, ID, OBJECT_CLASS, LIBRARY_CLASS ) \
     boost::shared_ptr<LIBRARY_CLASS> NAME; \

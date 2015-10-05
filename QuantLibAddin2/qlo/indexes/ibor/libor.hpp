@@ -25,10 +25,16 @@
 
 #include <qlo/indexes/iborindex.hpp>
 
+namespace QuantLib {
+    class Libor;
+    class Sonia;
+};
+
 namespace QuantLibAddin {
 
     class Libor : public IborIndex {
       public:
+        typedef QuantLib::Libor lib_type;
         Libor(const boost::shared_ptr<reposit::ValueObject>& properties,
               const QuantLib::Currency& currency,
               const std::string& p,
@@ -38,6 +44,7 @@ namespace QuantLibAddin {
 
     class Sonia : public OvernightIndex {
       public:
+        typedef QuantLib::Sonia lib_type;
         Sonia(const boost::shared_ptr<reposit::ValueObject>& properties,
               const QuantLib::Handle<QuantLib::YieldTermStructure>& hYTS,
               bool permanent);

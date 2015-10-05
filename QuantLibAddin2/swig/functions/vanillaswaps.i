@@ -22,7 +22,8 @@ namespace QuantLib {
             Rate fixedRate,
             const DayCounter& fixedDayCount,
             const Schedule& floatSchedule,
-            const boost::shared_ptr<IborIndex>& iborIndex,
+            //const boost::shared_ptr<IborIndex>& iborIndex,
+            const boost::shared_ptr<IborIndex>& qqq,
             Spread spread,
             const DayCounter& floatingDayCount/*,
             boost::optional<BusinessDayConvention> paymentConvention =
