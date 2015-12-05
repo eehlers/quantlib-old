@@ -81,15 +81,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib Ws2_32.lib advapi32.lib"
-				OutputFile="..\..\xll\reposit-xll-vc90-mt-gd-1_7_0.xll"
+				OutputFile="..\..\xll\reposit-xll-vc90-mt-gd-1_8_0.xll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\..\lib;..\..\..\log4cxx\msvc\lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\xll\reposit-xll-vc90-mt-gd-1_7_0.pdb"
+				ProgramDatabaseFile="..\..\xll\reposit-xll-vc90-mt-gd-1_8_0.pdb"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="..\..\lib\reposit-xll-vc90-mt-gd-1_7_0.lib"
+				ImportLibrary="..\..\lib\reposit-xll-vc90-mt-gd-1_8_0.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -180,16 +180,16 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib Ws2_32.lib advapi32.lib"
-				OutputFile="..\..\xll\reposit-xll-vc90-mt-1_7_0.xll"
+				OutputFile="..\..\xll\reposit-xll-vc90-mt-1_8_0.xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\..\lib,..\..\..\log4cxx\msvc\lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\xll\reposit-xll-vc90-mt-1_7_0.pdb"
+				ProgramDatabaseFile="..\..\xll\reposit-xll-vc90-mt-1_8_0.pdb"
 				OptimizeReferences="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="..\..\lib\reposit-xll-vc90-mt-1_7_0.lib"
+				ImportLibrary="..\..\lib\reposit-xll-vc90-mt-1_8_0.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -278,15 +278,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib Ws2_32.lib advapi32.lib"
-				OutputFile="..\..\xll\reposit-xll-vc90-$(PlatformName)-mt-gd-1_7_0.xll"
+				OutputFile="..\..\xll\reposit-xll-vc90-$(PlatformName)-mt-gd-1_8_0.xll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\..\lib;..\..\..\log4cxx\msvc\lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\xll\reposit-xll-vc90-$(PlatformName)-mt-gd-1_7_0.pdb"
+				ProgramDatabaseFile="..\..\xll\reposit-xll-vc90-$(PlatformName)-mt-gd-1_8_0.pdb"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="..\..\lib\reposit-xll-vc90-$(PlatformName)-mt-gd-1_7_0.lib"
+				ImportLibrary="..\..\lib\reposit-xll-vc90-$(PlatformName)-mt-gd-1_8_0.lib"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -377,16 +377,16 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib Ws2_32.lib advapi32.lib"
-				OutputFile="..\..\xll\reposit-xll-vc90-$(PlatformName)-mt-1_7_0.xll"
+				OutputFile="..\..\xll\reposit-xll-vc90-$(PlatformName)-mt-1_8_0.xll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\..\lib,..\..\..\log4cxx\msvc\lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\..\xll\reposit-xll-vc90-$(PlatformName)-mt-1_7_0.pdb"
+				ProgramDatabaseFile="..\..\xll\reposit-xll-vc90-$(PlatformName)-mt-1_8_0.pdb"
 				OptimizeReferences="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="..\..\lib\reposit-xll-vc90-$(PlatformName)-mt-1_7_0.lib"
+				ImportLibrary="..\..\lib\reposit-xll-vc90-$(PlatformName)-mt-1_8_0.lib"
 				TargetMachine="17"
 			/>
 			<Tool

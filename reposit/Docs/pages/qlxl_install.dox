@@ -27,7 +27,7 @@ This document explains how to install QuantLibXL.  32- and 64-bit XLLs are
 provided.
 
 Download 
-<a href="http://sourceforge.net/projects/quantlib/files/reposit/1.7/QuantLibXL-1.7.0-bin.zip">QuantLibXL-1.7.0-bin.zip</a>.
+<a href="http://sourceforge.net/projects/quantlib/files/reposit/1.7/QuantLibXL-1.8.0-bin.zip">QuantLibXL-1.8.0-bin.zip</a>.
 
 Copy the zip file to your hard drive and uncompress it.
 
@@ -37,7 +37,7 @@ To use QuantLibXL:
 \li Start Excel
 \li Load the addin.
 \verbatim
-xll\QuantLibXL-vc90-mt-s-1_7_0.xll
+xll\QuantLibXL-vc90-mt-s-1_8_0.xll
 \endverbatim
 \li Load an example workbook e.g:
 \verbatim

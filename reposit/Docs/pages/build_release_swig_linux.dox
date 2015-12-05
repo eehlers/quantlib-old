@@ -57,14 +57,14 @@ cd $REPOSIT_DIR/boost_1_58_0
 
 \section build_release_swig_linux_sec_4 reposit
 
-Download reposit-1.7.0.tar.gz to $REPOSIT_DIR.
+Download reposit-1.8.0.tar.gz to $REPOSIT_DIR.
 
 Configure and build reposit.
 
 \verbatim
 cd $REPOSIT_DIR
-tar xzvf reposit-1.7.0.tar.gz
-cd $REPOSIT_DIR/reposit-1.7.0
+tar xzvf reposit-1.8.0.tar.gz
+cd $REPOSIT_DIR/reposit-1.8.0
 ./configure --without-log4cxx \
     --prefix=$REPOSIT_DIR/install \
     CPPFLAGS=-I$REPOSIT_DIR/install/include \
@@ -96,13 +96,13 @@ make install
 
 \section build_release_swig_linux_sec_6 SWIG
 
-Download swig-1.7.0.tar.gz to $REPOSIT_DIR.
+Download swig-1.8.0.tar.gz to $REPOSIT_DIR.
 
 Configure and build SWIG.
 
 \verbatim
 cd $REPOSIT_DIR
-tar xzvf swig-reposit-1.7.0.tgz
+tar xzvf swig-reposit-1.8.0.tgz
 cd $REPOSIT_DIR/swig
 ./autogen.sh
 ./configure --prefix=$REPOSIT_DIR/install \
@@ -153,14 +153,14 @@ make install
 
 \section build_release_swig_linux_sec_10 QuantLibAddin
 
-Download QuantLibAddin-1.7.0.tar.gz to $REPOSIT_DIR.
+Download QuantLibAddin-1.8.0.tar.gz to $REPOSIT_DIR.
 
 Configure and build QuantLibAddin.
 
 \verbatim
 cd $REPOSIT_DIR
-tar xzvf QuantLibAddin-1.7.0.tar.gz
-cd $REPOSIT_DIR/QuantLibAddin-1.7.0
+tar xzvf QuantLibAddin-1.8.0.tar.gz
+cd $REPOSIT_DIR/QuantLibAddin-1.8.0
 ./configure \
     --prefix=$REPOSIT_DIR/install \
     --with-boost-include=$REPOSIT_DIR/install/include \

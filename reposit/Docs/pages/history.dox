@@ -23,7 +23,7 @@
 
 /*! \page history Version History
 
-<strong>Release 1.7.0 - December 2015</strong>
+<strong>Release 1.8.0 - December 2015</strong>
 
 FUNCTIONALITY
 
@@ -35,7 +35,7 @@ FUNCTIONALITY
 REQUIRED PACKAGES
 
 - Boost version 1.34.1 or later
-- log4cxx version 0.10.0f5 (optional on linux)
+- log4cxx version 0.10.0f6 (optional on linux)
 - reposit SWIG module
 - PCRE (a prerequeisite of SWIG)
 

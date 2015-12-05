@@ -1,7 +1,7 @@
 
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT([reposit], [1.7.0],
+AC_INIT([reposit], [1.8.0],
         [quantlib-dev@lists.sourceforge.net],
         [reposit])
 AC_PREREQ(2.50)

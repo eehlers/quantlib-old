@@ -87,17 +87,17 @@ header files alone are not sufficient.
 
 You are now ready to proceed with the build.  You need to install the following
 projects:
-\li <a href="http://quantlib.org/">QuantLib</a> 1.7.0 - The core C++
+\li <a href="http://quantlib.org/">QuantLib</a> 1.8.0 - The core C++
     analytics library
-\li <a href="http://www.quantlib.org/reposit">reposit</a> 1.7.0 - An object
+\li <a href="http://www.quantlib.org/reposit">reposit</a> 1.8.0 - An object
     repository
-\li log4cxx 0.10.0f5 - A logging framework, used by reposit
+\li log4cxx 0.10.0f6 - A logging framework, used by reposit
 \li SWIG - a tool for autogenerating source code, customized for reposit (Full
     build only)
 \li PCRE - a utility required by SWIG (Full build only)
-\li <a href="http://www.quantlibaddin.org">QuantLibAddin</a> 1.7.0 - Addins for
+\li <a href="http://www.quantlibaddin.org">QuantLibAddin</a> 1.8.0 - Addins for
     %QuantLib functionality
-\li <a href="http://www.quantlibxl.org">QuantLibXL</a> 1.7.0 - The Excel
+\li <a href="http://www.quantlibxl.org">QuantLibXL</a> 1.8.0 - The Excel
     implementation of %QuantLibAddin
 
 The build uses a VC solution (see below) which allows QuantLibXL and its
@@ -105,24 +105,24 @@ prerequisites to be compiled together.  The solution uses relative pathnames to
 refer to the prerequisite projects %QuantLib, log4cxx, reposit, and
 %QuantLibAddin.  In order for this to work, these projects must reside side by
 %side in the directory tree, and the name of each project's parent directory
-%must not include the version number (e.g. \c %QuantLib not \c QuantLib-1.7.0).
+%must not include the version number (e.g. \c %QuantLib not \c QuantLib-1.8.0).
 
 Create a new empty folder on your hard drive to serve as the root directory for
 the build.  You can use any path, for purposes of this tutorial the build
-directory is <tt>C:\\build_ql_1_7_0</tt>.  As described below you should copy
+directory is <tt>C:\\build_ql_1_8_0</tt>.  As described below you should copy
 all of the required source code zip files to that directory and then unzip them
 in place.  After unzipping %QuantLib you must manually rename the target
-directory, removing the \c 1.7.0 suffix from the directory name.  After all of
+directory, removing the \c 1.8.0 suffix from the directory name.  After all of
 the source code is unzipped you should have the following directory structure:
 
 \verbatim
-C:\build_ql_1_7_0\pcre (Full build only)
-C:\build_ql_1_7_0\swig (Full build only)
-C:\build_ql_1_7_0\log4cxx
-C:\build_ql_1_7_0\QuantLib
-C:\build_ql_1_7_0\QuantLibAddin2
-C:\build_ql_1_7_0\QuantLibXL2
-C:\build_ql_1_7_0\reposit
+C:\build_ql_1_8_0\pcre (Full build only)
+C:\build_ql_1_8_0\swig (Full build only)
+C:\build_ql_1_8_0\log4cxx
+C:\build_ql_1_8_0\QuantLib
+C:\build_ql_1_8_0\QuantLibAddin2
+C:\build_ql_1_8_0\QuantLibXL2
+C:\build_ql_1_8_0\reposit
 \endverbatim
 
 \section build_release_swig_windows_sec_04 4 Install the Source Code
@@ -130,48 +130,48 @@ C:\build_ql_1_7_0\reposit
 Go to the
 <a href="http://sourceforge.net/projects/quantlib/files/QuantLib/1.7/">QuantLib downloads page</a>.
 
-Download <tt>QuantLib-1.7.0.zip</tt> and uncompress the package to
-<tt>C:\\build_ql_1_7_0\\%QuantLib</tt>.
+Download <tt>QuantLib-1.8.0.zip</tt> and uncompress the package to
+<tt>C:\\build_ql_1_8_0\\%QuantLib</tt>.
 
 Go to the
 <a href="http://sourceforge.net/projects/quantlib/files/reposit/1.7/">reposit downloads page</a>.
 
-Download <tt>log4cxx-0.10.0f5.zip</tt> and uncompress the package to
-<tt>C:\\build_ql_1_7_0\\log4cxx</tt>.
+Download <tt>log4cxx-0.10.0f6.zip</tt> and uncompress the package to
+<tt>C:\\build_ql_1_8_0\\log4cxx</tt>.
 
-Download <tt>reposit-1.7.0.zip</tt> and uncompress the package to
-<tt>C:\\build_ql_1_7_0\\reposit</tt>.
+Download <tt>reposit-1.8.0.zip</tt> and uncompress the package to
+<tt>C:\\build_ql_1_8_0\\reposit</tt>.
 
-Download <tt>QuantLibAddin-1.7.0.zip</tt> and uncompress the package to
-<tt>C:\\build_ql_1_7_0\\%QuantLibAddin2</tt>.
+Download <tt>QuantLibAddin-1.8.0.zip</tt> and uncompress the package to
+<tt>C:\\build_ql_1_8_0\\%QuantLibAddin2</tt>.
 
-Download <tt>QuantLibXL-1.7.0.zip</tt> and uncompress the package to
-<tt>C:\\build_ql_1_7_0\\QuantLibXL2</tt>.
+Download <tt>QuantLibXL-1.8.0.zip</tt> and uncompress the package to
+<tt>C:\\build_ql_1_8_0\\QuantLibXL2</tt>.
 
 Download <tt>pcre-8.35.zip</tt> and uncompress the package to
-<tt>C:\\build_ql_1_7_0\\pcre</tt> (Full build only).
+<tt>C:\\build_ql_1_8_0\\pcre</tt> (Full build only).
 
-Download <tt>swig-1.7.0.zip</tt> and uncompress the package to
-<tt>C:\\build_ql_1_7_0\\swig</tt> (Full build only).
+Download <tt>swig-1.8.0.zip</tt> and uncompress the package to
+<tt>C:\\build_ql_1_8_0\\swig</tt> (Full build only).
 
 \section build_release_swig_windows_sec_05 5 PCRE (Full build only)
 
 You need cmake in order to build the PCRE project files.  Create a new directory:
 
 \verbatim
-C:\build_ql_1_7_0\pcre-8.35\build
+C:\build_ql_1_8_0\pcre-8.35\build
 \endverbatim
 
 And open a DOS prompt in that directory and do:
 
 \verbatim
-"C:\Program Files (x86)\CMake\bin\cmake.exe" -G "Visual Studio 9 2008" C:\build_ql_1_7_0\pcre-8.35
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -G "Visual Studio 9 2008" C:\build_ql_1_8_0\pcre-8.35
 \endverbatim
 
 Build the solution, configuration Release:
 
 \verbatim
-C:\build_ql_1_7_0\pcre-8.35\build\PCRE.sln
+C:\build_ql_1_8_0\pcre-8.35\build\PCRE.sln
 \endverbatim
 
 \section build_release_swig_windows_sec_06 6 SWIG (Full build only)
@@ -179,7 +179,7 @@ C:\build_ql_1_7_0\pcre-8.35\build\PCRE.sln
 Build the solution, configuration Release:
 
 \verbatim
-C:\build_ql_1_7_0\swig\swig_vc9.sln
+C:\build_ql_1_8_0\swig\swig_vc9.sln
 \endverbatim
 
 <br>
@@ -202,20 +202,20 @@ then proceed with the steps below.
 Build the solution, configuration Release (static runtime):
 
 \verbatim
-C:\build_ql_1_7_0\reposit\reposit_vc9.sln
+C:\build_ql_1_8_0\reposit\reposit_vc9.sln
 \endverbatim
 
 Run the executable:
 
 \verbatim
-C:\build_ql_1_7_0\reposit\Examples\C++\bin\ExampleCpp-vc90-mt-s.exe
+C:\build_ql_1_8_0\reposit\Examples\C++\bin\ExampleCpp-vc90-mt-s.exe
 \endverbatim
 
 Start Excel and load the addin and workbook:
 
 \verbatim
-C:\build_ql_1_7_0\reposit\Examples\xl\xll\ExampleXLLStatic-vc90-mt-s.xll
-C:\build_ql_1_7_0\reposit\Examples\xl\exampleStatic.xls
+C:\build_ql_1_8_0\reposit\Examples\xl\xll\ExampleXLLStatic-vc90-mt-s.xll
+C:\build_ql_1_8_0\reposit\Examples\xl\exampleStatic.xls
 \endverbatim
 
 \section build_release_swig_windows_sec_08 8 SimpleLib
@@ -223,20 +223,20 @@ C:\build_ql_1_7_0\reposit\Examples\xl\exampleStatic.xls
 Build the solution, configuration Release:
 
 \verbatim
-C:\build_ql_1_7_0\swig\Examples\reposit\simple\simple.sln
+C:\build_ql_1_8_0\swig\Examples\reposit\simple\simple.sln
 \endverbatim
 
 Run the executable:
 
 \verbatim
-C:\build_ql_1_7_0\swig\Examples\reposit\simple\Release\MainSimpleLibAddin.exe
+C:\build_ql_1_8_0\swig\Examples\reposit\simple\Release\MainSimpleLibAddin.exe
 \endverbatim
 
 Start Excel and load the addin and workbook:
 
 \verbatim
-C:\build_ql_1_7_0\swig\Examples\reposit\simple\Release\AddinXl.xll
-C:\build_ql_1_7_0\swig\Examples\reposit\simple\AddinXl\AddinXl.xlsx
+C:\build_ql_1_8_0\swig\Examples\reposit\simple\Release\AddinXl.xll
+C:\build_ql_1_8_0\swig\Examples\reposit\simple\AddinXl\AddinXl.xlsx
 \endverbatim
 
 \section build_release_swig_windows_sec_09 9 ComplexLib
@@ -244,20 +244,20 @@ C:\build_ql_1_7_0\swig\Examples\reposit\simple\AddinXl\AddinXl.xlsx
 Build the solution, configuration Release:
 
 \verbatim
-C:\build_ql_1_7_0\swig\Examples\reposit\complex\complex.sln
+C:\build_ql_1_8_0\swig\Examples\reposit\complex\complex.sln
 \endverbatim
 
 Run the executable:
 
 \verbatim
-C:\build_ql_1_7_0\swig\Examples\reposit\complex\Release\MainComplexLibAddin.exe
+C:\build_ql_1_8_0\swig\Examples\reposit\complex\Release\MainComplexLibAddin.exe
 \endverbatim
 
 Start Excel and load the addin and workbook:
 
 \verbatim
-C:\build_ql_1_7_0\swig\Examples\reposit\complex\Release\AddinXl.xll
-C:\build_ql_1_7_0\swig\Examples\reposit\complex\ComplexLibXL\Workbooks\AddinXl.xlsx
+C:\build_ql_1_8_0\swig\Examples\reposit\complex\Release\AddinXl.xll
+C:\build_ql_1_8_0\swig\Examples\reposit\complex\ComplexLibXL\Workbooks\AddinXl.xlsx
 \endverbatim
 
 \section build_release_swig_windows_sec_10 10 QuantLibAddin
@@ -265,13 +265,13 @@ C:\build_ql_1_7_0\swig\Examples\reposit\complex\ComplexLibXL\Workbooks\AddinXl.x
 Build the solution, configuration Release (static runtime):
 
 \verbatim
-C:\build_ql_1_7_0\QuantLibAddin2\QuantLibAddin_vc9.sln
+C:\build_ql_1_8_0\QuantLibAddin2\QuantLibAddin_vc9.sln
 \endverbatim
 
 Run the executable:
 
 \verbatim
-C:\build_ql_1_7_0\QuantLibAddin2\Release\MainQuantLibAddin.exe
+C:\build_ql_1_8_0\QuantLibAddin2\Release\MainQuantLibAddin.exe
 \endverbatim
 
 \section build_release_swig_windows_sec_11 11 Build QuantLibXL
@@ -285,7 +285,7 @@ C:\build_ql_1_7_0\QuantLibAddin2\Release\MainQuantLibAddin.exe
 Choose configuration <tt>Release (static runtime)</tt> and do <tt>Build | Build Solution</tt>.
 
 The build process creates the %QuantLibXL binary file
-<tt>QuantLibXL2\\xll\\QuantLibXL-vc90-mt-s-1_7_0.xll</tt>.  Instructions for
+<tt>QuantLibXL2\\xll\\QuantLibXL-vc90-mt-s-1_8_0.xll</tt>.  Instructions for
 loading the addin are provided in the QuantLibXL installation document:
 \ref qlxl_install \n
 

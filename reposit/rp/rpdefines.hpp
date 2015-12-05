@@ -34,15 +34,15 @@
 
 //! Version string.
 #ifdef _DEBUG
-    #define REPOSIT_VERSION "1.7.0-debug"
+    #define REPOSIT_VERSION "1.8.0-debug"
 #else
-    #define REPOSIT_VERSION "1.7.0"
+    #define REPOSIT_VERSION "1.8.0"
 #endif
 
 //! Version hexadecimal number.
-#define REPOSIT_HEX_VERSION 0x010700f0
+#define REPOSIT_HEX_VERSION 0x010800f0
 //! Version string for output lib name.
-#define REPOSIT_LIB_VERSION "1_7_0"
+#define REPOSIT_LIB_VERSION "1_8_0"
 
 #include <cctype>
 #if defined(BOOST_NO_STDC_NAMESPACE)

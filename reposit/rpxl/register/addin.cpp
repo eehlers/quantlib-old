@@ -117,7 +117,7 @@ DLLEXPORT XLOPER *xlAddInManagerInfo(XLOPER *xlAction) {
     // long name for the XLL. Any other value should result in the
     // return of a #VALUE! error.
     if (1 == xlReturn.val.w) {
-        reposit::scalarToOper(std::string("reposit 1.7.0"), xlLongName);
+        reposit::scalarToOper(std::string("reposit 1.8.0"), xlLongName);
     } else {
         xlLongName.xltype = xltypeErr;
         xlLongName.val.err = xlerrValue;
