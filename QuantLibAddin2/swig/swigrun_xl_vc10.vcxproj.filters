@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="swig">
+      <UniqueIdentifier>{76d9f034-bde8-4b7a-9f06-926e0f6399d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="swig\functions">
+      <UniqueIdentifier>{28c21298-bde1-4ae6-bf7b-0f99af6a9c16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="swig\typemaps">
+      <UniqueIdentifier>{c7613898-852a-42f9-9172-951257edbf7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="swig\typedefs">
+      <UniqueIdentifier>{ec8d8977-86b6-4e93-b381-294be9e43bba}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="quantlib.i">
+      <Filter>swig</Filter>
+    </None>
+    <None Include="functions\all.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\calendars.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\couponvectors.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\date.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\daycounters.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\exercise.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\handles.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\indexes.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\instruments.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\interpolation.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\leg.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\math.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\models.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\payoffs.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\piecewiseyieldcurve.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\prices.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\pricingengines.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\processes.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\quote.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\ratehelpers.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\schedule.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\settings.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\termstructures.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\utilities.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\vanillaswaps.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="functions\volatilities.i">
+      <Filter>swig\functions</Filter>
+    </None>
+    <None Include="typemaps\addincountify.i">
+      <Filter>swig\typemaps</Filter>
+    </None>
+    <None Include="typemaps\addincpp.i">
+      <Filter>swig\typemaps</Filter>
+    </None>
+    <None Include="typemaps\addinexcel.i">
+      <Filter>swig\typemaps</Filter>
+    </None>
+    <None Include="typemaps\all.i">
+      <Filter>swig\typemaps</Filter>
+    </None>
+    <None Include="typemaps\apply.i">
+      <Filter>swig\typemaps</Filter>
+    </None>
+    <None Include="typemaps\handles.i">
+      <Filter>swig\typemaps</Filter>
+    </None>
+    <None Include="typemaps\libraryobjects.i">
+      <Filter>swig\typemaps</Filter>
+    </None>
+    <None Include="typemaps\serialization.i">
+      <Filter>swig\typemaps</Filter>
+    </None>
+    <None Include="typemaps\shared.i">
+      <Filter>swig\typemaps</Filter>
+    </None>
+    <None Include="typemaps\valueobjects.i">
+      <Filter>swig\typemaps</Filter>
+    </None>
+    <None Include="typedefs\all.i">
+      <Filter>swig\typedefs</Filter>
+    </None>
+    <None Include="Makefile.vc" />
+  </ItemGroup>
+</Project>
