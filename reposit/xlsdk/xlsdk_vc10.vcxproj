@@ -138,10 +138,10 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">xlsdk-vc100-mt-gd</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug (static runtime)|Win32'">xlsdk-vc100-mt-sgd</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release (static runtime)|Win32'">xlsdk-vc100-mt-s</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">xlsdk-vc100-mt</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">xlsdk-vc100-mt-gd</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug (static runtime)|x64'">xlsdk-vc100-mt-sgd</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release (static runtime)|x64'">xlsdk-vc100-mt-s</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">xlsdk-vc100-x64-mt</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">xlsdk-vc100-x64-mt-gd</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug (static runtime)|x64'">xlsdk-vc100-x64-mt-sgd</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release (static runtime)|x64'">xlsdk-vc100-x64-mt-s</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release (static runtime)|Win32'">
     <ClCompile>
