@@ -17,7 +17,7 @@
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the license for more details.
 */
-
+#include <iostream>
 #include <ql/pricingengines/swap/discretizedswap.hpp>
 
 namespace QuantLib {
@@ -192,7 +192,7 @@ namespace QuantLib {
                                      const Date& referenceDate,
                                      const DayCounter& dayCounter,
                                      const Date entryDate)
-    : floatingStructure_(args, referenceDate, dayCounter, entryDate), fixedStructure_(args, referenceDate, dayCounter, entryDate) {
+    : arguments_(args), floatingStructure_(args, referenceDate, dayCounter, entryDate), fixedStructure_(args, referenceDate, dayCounter, entryDate) {
 
     }
 
@@ -220,9 +220,9 @@ namespace QuantLib {
         fixedStructure_.preAdjustValuesImpl();
         values_ = floatingStructure_.values() - fixedStructure_.values();
         
-        if (arguments_.type != VanillaSwap::Receiver) {
+        if (arguments_.type == VanillaSwap::Receiver) {
             values_ *= -1.0;
-        }
+        } 
     }
 
     void DiscretizedSwap::postAdjustValuesImpl() {
@@ -230,7 +230,7 @@ namespace QuantLib {
         fixedStructure_.postAdjustValuesImpl();
         values_ = floatingStructure_.values() - fixedStructure_.values();
 
-        if (arguments_.type != VanillaSwap::Receiver) {
+        if (arguments_.type == VanillaSwap::Receiver) {
             values_ *= -1.0;
         }
     }
