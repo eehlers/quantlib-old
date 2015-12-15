@@ -137,10 +137,10 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\build\vc100\$(Configuration)\apr\apr.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\build\vc100\$(Configuration)\apr\apr_obj\</AssemblerListingLocation>
-      <ObjectFileName>.\build\vc100\$(Configuration)\apr\apr_obj\</ObjectFileName>
-      <ProgramDataBaseFileName>.\build\vc100\$(Configuration)\apr\apr_obj\vc100.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\build\vc100\$(Platform)\$(Configuration)\apr\apr.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\</AssemblerListingLocation>
+      <ObjectFileName>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\</ObjectFileName>
+      <ProgramDataBaseFileName>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\vc100.pdb</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
@@ -164,10 +164,10 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\build\vc100\$(Configuration)\apr\apr.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\build\vc100\$(Configuration)\apr\apr_obj\</AssemblerListingLocation>
-      <ObjectFileName>.\build\vc100\$(Configuration)\apr\apr_obj\</ObjectFileName>
-      <ProgramDataBaseFileName>.\build\vc100\$(Configuration)\apr\apr_obj\vc100.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\build\vc100\$(Platform)\$(Configuration)\apr\apr.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\</AssemblerListingLocation>
+      <ObjectFileName>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\</ObjectFileName>
+      <ProgramDataBaseFileName>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\vc100.pdb</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
@@ -190,10 +190,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\build\vc100\$(Configuration)\apr\apr.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\build\vc100\$(Configuration)\apr\apr_obj\</AssemblerListingLocation>
-      <ObjectFileName>.\build\vc100\$(Configuration)\apr\apr_obj\</ObjectFileName>
-      <ProgramDataBaseFileName>.\build\vc100\$(Configuration)\apr\apr_obj\vc100.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\build\vc100\$(Platform)\$(Configuration)\apr\apr.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\</AssemblerListingLocation>
+      <ObjectFileName>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\</ObjectFileName>
+      <ProgramDataBaseFileName>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\vc100.pdb</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
@@ -219,10 +219,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\build\vc100\$(Configuration)\apr\apr.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\build\vc100\$(Configuration)\apr\apr_obj\</AssemblerListingLocation>
-      <ObjectFileName>.\build\vc100\$(Configuration)\apr\apr_obj\</ObjectFileName>
-      <ProgramDataBaseFileName>.\build\vc100\$(Configuration)\apr\apr_obj\vc100.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\build\vc100\$(Platform)\$(Configuration)\apr\apr.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\</AssemblerListingLocation>
+      <ObjectFileName>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\</ObjectFileName>
+      <ProgramDataBaseFileName>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\vc100.pdb</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
@@ -243,10 +243,10 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\build\vc100\$(Configuration)\apr\apr.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\build\vc100\$(Configuration)\apr\apr_obj\</AssemblerListingLocation>
-      <ObjectFileName>.\build\vc100\$(Configuration)\apr\apr_obj\</ObjectFileName>
-      <ProgramDataBaseFileName>.\build\vc100\$(Configuration)\apr\apr_obj\vc100.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\build\vc100\$(Platform)\$(Configuration)\apr\apr.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\</AssemblerListingLocation>
+      <ObjectFileName>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\</ObjectFileName>
+      <ProgramDataBaseFileName>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\vc100.pdb</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
@@ -270,10 +270,10 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\build\vc100\$(Configuration)\apr\apr.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\build\vc100\$(Configuration)\apr\apr_obj\</AssemblerListingLocation>
-      <ObjectFileName>.\build\vc100\$(Configuration)\apr\apr_obj\</ObjectFileName>
-      <ProgramDataBaseFileName>.\build\vc100\$(Configuration)\apr\apr_obj\vc100.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\build\vc100\$(Platform)\$(Configuration)\apr\apr.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\</AssemblerListingLocation>
+      <ObjectFileName>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\</ObjectFileName>
+      <ProgramDataBaseFileName>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\vc100.pdb</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
@@ -296,10 +296,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\build\vc100\$(Configuration)\apr\apr.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\build\vc100\$(Configuration)\apr\apr_obj\</AssemblerListingLocation>
-      <ObjectFileName>.\build\vc100\$(Configuration)\apr\apr_obj\</ObjectFileName>
-      <ProgramDataBaseFileName>.\build\vc100\$(Configuration)\apr\apr_obj\vc100.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\build\vc100\$(Platform)\$(Configuration)\apr\apr.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\</AssemblerListingLocation>
+      <ObjectFileName>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\</ObjectFileName>
+      <ProgramDataBaseFileName>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\vc100.pdb</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
@@ -325,10 +325,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\build\vc100\$(Configuration)\apr\apr.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\build\vc100\$(Configuration)\apr\apr_obj\</AssemblerListingLocation>
-      <ObjectFileName>.\build\vc100\$(Configuration)\apr\apr_obj\</ObjectFileName>
-      <ProgramDataBaseFileName>.\build\vc100\$(Configuration)\apr\apr_obj\vc100.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\build\vc100\$(Platform)\$(Configuration)\apr\apr.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\</AssemblerListingLocation>
+      <ObjectFileName>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\</ObjectFileName>
+      <ProgramDataBaseFileName>.\build\vc100\$(Platform)\$(Configuration)\apr\apr_obj\vc100.pdb</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>

@@ -137,10 +137,10 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\build\vc100\$(Configuration)\aprutil\aprutil.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\</AssemblerListingLocation>
-      <ObjectFileName>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\</ObjectFileName>
-      <ProgramDataBaseFileName>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\vc100.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\</AssemblerListingLocation>
+      <ObjectFileName>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\</ObjectFileName>
+      <ProgramDataBaseFileName>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\vc100.pdb</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
@@ -162,10 +162,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\build\vc100\$(Configuration)\aprutil\aprutil.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\</AssemblerListingLocation>
-      <ObjectFileName>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\</ObjectFileName>
-      <ProgramDataBaseFileName>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\vc100.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\</AssemblerListingLocation>
+      <ObjectFileName>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\</ObjectFileName>
+      <ProgramDataBaseFileName>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\vc100.pdb</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
@@ -184,10 +184,10 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\build\vc100\$(Configuration)\aprutil\aprutil.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\</AssemblerListingLocation>
-      <ObjectFileName>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\</ObjectFileName>
-      <ProgramDataBaseFileName>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\vc100.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\</AssemblerListingLocation>
+      <ObjectFileName>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\</ObjectFileName>
+      <ProgramDataBaseFileName>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\vc100.pdb</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
@@ -208,10 +208,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\build\vc100\$(Configuration)\aprutil\aprutil.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\</AssemblerListingLocation>
-      <ObjectFileName>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\</ObjectFileName>
-      <ProgramDataBaseFileName>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\vc100.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\</AssemblerListingLocation>
+      <ObjectFileName>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\</ObjectFileName>
+      <ProgramDataBaseFileName>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\vc100.pdb</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
@@ -233,10 +233,10 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\build\vc100\$(Configuration)\aprutil\aprutil.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\</AssemblerListingLocation>
-      <ObjectFileName>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\</ObjectFileName>
-      <ProgramDataBaseFileName>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\vc100.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\</AssemblerListingLocation>
+      <ObjectFileName>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\</ObjectFileName>
+      <ProgramDataBaseFileName>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\vc100.pdb</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
@@ -261,10 +261,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\build\vc100\$(Configuration)\aprutil\aprutil.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\</AssemblerListingLocation>
-      <ObjectFileName>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\</ObjectFileName>
-      <ProgramDataBaseFileName>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\vc100.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\</AssemblerListingLocation>
+      <ObjectFileName>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\</ObjectFileName>
+      <ProgramDataBaseFileName>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\vc100.pdb</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
@@ -286,10 +286,10 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\build\vc100\$(Configuration)\aprutil\aprutil.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\</AssemblerListingLocation>
-      <ObjectFileName>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\</ObjectFileName>
-      <ProgramDataBaseFileName>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\vc100.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\</AssemblerListingLocation>
+      <ObjectFileName>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\</ObjectFileName>
+      <ProgramDataBaseFileName>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\vc100.pdb</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
@@ -313,10 +313,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>.\build\vc100\$(Configuration)\aprutil\aprutil.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\</AssemblerListingLocation>
-      <ObjectFileName>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\</ObjectFileName>
-      <ProgramDataBaseFileName>.\build\vc100\$(Configuration)\aprutil\aprutil_obj\vc100.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeaderOutputFile>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\</AssemblerListingLocation>
+      <ObjectFileName>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\</ObjectFileName>
+      <ProgramDataBaseFileName>.\build\vc100\$(Platform)\$(Configuration)\aprutil\aprutil_obj\vc100.pdb</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
