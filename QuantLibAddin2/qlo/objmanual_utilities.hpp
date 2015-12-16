@@ -21,8 +21,8 @@ namespace QuantLibAddin {
     // quick fix for =countify
     long ObjectCount();
 
-    // temporary hack to extract the accrual start dates from the fixed leg of a swap
     std::vector<QuantLib::Date> swapFixedLegAccrualStartDates(const std::string &objectID);
+    QuantLib::Date swapFixedLegLastAccrualStartDate(const std::string &objectID);
 
     std::vector<QuantLib::Date> swaptionExerciseDates(const std::string &objectID);
     std::vector<double> swaptionExerciseProbabilities(const std::string &objectID);

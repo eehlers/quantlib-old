@@ -79,6 +79,20 @@ std::vector<QuantLib::Date> QuantLibAddin::swapFixedLegAccrualStartDates(const s
     return ret;
 }
 
+QuantLib::Date QuantLibAddin::swapFixedLegLastAccrualStartDate(const std::string &objectID) {
+    RP_GET_REFERENCE(swap, objectID, QuantLibAddin::VanillaSwap, QuantLib::VanillaSwap);
+    QuantLib::Date ret;
+    const std::vector<boost::shared_ptr<QuantLib::CashFlow> >& leg =
+        swap->fixedLeg();
+    for (unsigned int i=0; i<leg.size(); i++) {
+        boost::shared_ptr<QuantLib::Coupon> coupon =
+            boost::dynamic_pointer_cast<QuantLib::Coupon>(leg[i]);
+        if (coupon->accrualStartDate() > ret)
+            ret = coupon->accrualStartDate();
+    }
+    return ret;
+}
+
 std::vector<QuantLib::Date> QuantLibAddin::swaptionExerciseDates(const std::string &objectID) {
     RP_GET_REFERENCE(swaption, objectID, QuantLibAddin::Swaption, QuantLib::Swaption);
     std::vector<QuantLib::Date> ret;
