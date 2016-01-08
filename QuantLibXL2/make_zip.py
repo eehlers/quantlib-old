@@ -11,8 +11,8 @@ import re
 QLXL = "QuantLibXL"
 VERSION = "1.7.0"
 VERSION_ = "1_7_0"
-#VC_VERSION = "vc90"
-VC_VERSION = "vc100"
+VC_VERSION = "vc90"
+#VC_VERSION = "vc100"
 #VC_VERSION = "vc120"
 QLXL_VERSION = QLXL + "-" + VERSION
 ROOT_DIR = QLXL_VERSION + "\\"
@@ -179,14 +179,17 @@ def makeZipStaticX64():
 def zipBinaryFiles(zipFile):
     #zipFile.zip("zip\\README.txt", zipFile.root + "README.txt")
     zipFile.zip("xll\\QuantLibXL-" + VC_VERSION + "-mt-s-" + VERSION_ + ".xll")
-    zipFile.zip("xll\\QuantLibXL-" + VC_VERSION + "-x64-mt-s-" + VERSION_ + ".xll")
+    #zipFile.zip("xll\\QuantLibXL-" + VC_VERSION + "-x64-mt-s-" + VERSION_ + ".xll")
     #zipFile.zip("Docs\\QuantLibXL-docs-" + VERSION + ".chm")
+    zipFile.zip("Workbooks\\BermudanSwaption_VC9_32.bat")
+    zipFile.zip("Workbooks\\EquityOption_VC9_32.bat")
+    zipFile.zip("Workbooks\\BermudanSwaptions\\init_VC9_32.bat")
     Selector(
         inputPath = 'Workbooks',
         zipFile = zipFile,
         incFiles = (
-            re.compile('^.*\.TXT$'),
-            re.compile('^.*\.bat$'),
+            #re.compile('^.*\.TXT$'),
+            #re.compile('^.*\.bat$'),
             re.compile('^.*\.xlsm$'),
             re.compile('^.*\.xlam$'),
             re.compile('^.*\.xlsx$'),),
