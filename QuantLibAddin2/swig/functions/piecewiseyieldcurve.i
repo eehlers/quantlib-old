@@ -18,5 +18,18 @@ namespace QuantLibAddin {
             const std::string& interpolatorID);
         std::vector<QuantLib::Real> data();
     };
+
+    class InterpolatedYieldCurve : public YieldTermStructure {
+      public:
+        InterpolatedYieldCurve(
+            const std::vector<QuantLib::Date>& dates,
+            const std::vector<QuantLib::Real>& data,
+            const QuantLib::Calendar& calendar,
+            const QuantLib::DayCounter& dayCounter,
+            const std::vector<QuantLib::Handle<QuantLib::Quote> >& jumps,
+            const std::vector<QuantLib::Date>& jumpDates,
+            const std::string& traitsID,
+            const std::string& interpolatorID);
+    };
 }
 
