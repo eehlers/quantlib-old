@@ -26,13 +26,15 @@ FOR A PARTICULAR PURPOSE.  See the license for more details.
 
 #include <map>
 #include <boost/any.hpp>
+#include <boost/smart_ptr/shared_ptr.hpp>
+#include <vector>
 
 namespace QuantLib {
 	class DiscretizedAsset;
 	struct AdditionalResultCalculator {
 		AdditionalResultCalculator();
 
-		std::map<std::string, boost::any> additionalResults() const;
+		virtual std::map<std::string, boost::any> additionalResults() const;
 
 		virtual void calculateAdditionalResults() ;
 
@@ -41,6 +43,25 @@ namespace QuantLib {
 		virtual ~AdditionalResultCalculator();
 	protected:
 		std::map<std::string, boost::any> additionalResults_;
+	};
+
+	struct CollectedResultCalculator : virtual public AdditionalResultCalculator{
+        typedef std::vector<boost::shared_ptr<AdditionalResultCalculator> >Container;
+        typedef Container::const_iterator const_iterator;
+
+		CollectedResultCalculator();
+
+        CollectedResultCalculator(const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& calculators);
+
+        CollectedResultCalculator(const CollectedResultCalculator& calculator);
+
+		std::map<std::string, boost::any> additionalResults() const ;
+
+		void setupDiscretizedAsset(const boost::shared_ptr<DiscretizedAsset>& asset);
+
+		void calculateAdditionalResults();
+    private:
+        const Container calculators_;
 	};
 
 	

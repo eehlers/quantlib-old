@@ -34,8 +34,43 @@ namespace QuantLib {
 	}
 
 	void AdditionalResultCalculator::calculateAdditionalResults() {
-
 	}
 
 	AdditionalResultCalculator::~AdditionalResultCalculator() {}
+    CollectedResultCalculator::CollectedResultCalculator() {}
+
+    CollectedResultCalculator::CollectedResultCalculator(
+        const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& calculators
+    ): calculators_(calculators) {}
+
+    CollectedResultCalculator::CollectedResultCalculator(
+        const CollectedResultCalculator& calculator
+    ): calculators_(calculator.calculators_) {}
+
+        std::map<std::string, boost::any>
+    CollectedResultCalculator::additionalResults() const {
+        std::map<std::string, boost::any> result;
+        //FIXME - this assumes our result maps are disjoint.  Implementer is encouraged
+        //to ensure this.
+        for (const_iterator ptr = calculators_.cbegin(); ptr != calculators_.cend(); ++ptr) {
+            result.insert((*ptr)->additionalResults().begin(), (*ptr)->additionalResults().end());
+        }
+
+        return result;
+    }
+
+    void CollectedResultCalculator::setupDiscretizedAsset(
+        const boost::shared_ptr<DiscretizedAsset>& asset
+    ) {
+        for (const_iterator ptr = calculators_.cbegin(); ptr != calculators_.cend(); ++ptr) {
+            (*ptr)->setupDiscretizedAsset(asset);
+        }
+    }
+
+    void CollectedResultCalculator::calculateAdditionalResults(
+    ) {
+        for (const_iterator ptr = calculators_.cbegin(); ptr != calculators_.cend(); ++ptr) {
+            (*ptr)->calculateAdditionalResults();
+        }
+    }
 }

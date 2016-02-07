@@ -28,6 +28,7 @@
 #include <ql/instruments/swaption.hpp>
 #include <ql/discretizedasset.hpp>    
 #include <ql/pricingengines/swap/discretizedswap.hpp>
+#include <ql/pricingengines/swap/discretizedcoterminalswapstrip.hpp>
 
 namespace QuantLib {
 

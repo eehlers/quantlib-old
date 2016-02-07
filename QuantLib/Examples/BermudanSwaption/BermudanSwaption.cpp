@@ -36,6 +36,7 @@ Is there anyone with a definitive word about this?
 #include <iostream>
 #include <iomanip>
 #include <ql/pricingengines/treecumulativeprobabilitycalculator1d.hpp>
+#include <ql/pricingengines/greekcalculator.hpp>
 
 using namespace QuantLib;
 
@@ -105,10 +106,10 @@ namespace {
     void printExerciseProbabilities(std::ostream& out, const Swaption& swaption) {
         typedef std::map<std::string, boost::any> result_map;
         typedef std::map<Date, std::pair<double, double> > dated_prob_boundaries;
-        const result_map allResults = swaption.additionalResults();
+        const result_map all_results = swaption.additionalResults();
 
-        result_map::const_iterator result_ptr = allResults.find("ExerciseProbabilityAndSwapBoundary");
-        if (result_ptr != allResults.end()) {
+        result_map::const_iterator result_ptr = all_results.find("ExerciseProbabilityAndSwapBoundary");
+        if (result_ptr != all_results.end()) {
             const boost::shared_ptr<dated_prob_boundaries> datedProbBoundaries =
                 boost::any_cast<boost::shared_ptr<dated_prob_boundaries> > (result_ptr->second);
             out << "Exercise Probability {date, (prob, rate)}" << std::endl;
@@ -123,12 +124,46 @@ namespace {
             out << std::endl;
         }
     }
+
+    void printGreekValues(std::ostream& out, const Swaption& swaption) {
+        typedef std::map<std::string, boost::any> result_map;
+        const result_map all_results = swaption.additionalResults();
+
+        result_map::const_iterator delta_ptr = all_results.find("delta");
+        result_map::const_iterator vega_ptr = all_results.find("vega");
+
+        auto delta = boost::any_cast<double>(delta_ptr->second);
+        auto vega = boost::any_cast<double>(vega_ptr->second);
+
+        out << "{delta: " << delta << ", vega: " << vega << "}" << std::endl;
+    }
+
+      inline boost::shared_ptr<CollectedResultCalculator>
+    buildResultCalculators(
+        const ShiftedQuote& priceAndBump,
+        const ShiftedModel& volAndBump,
+        const boost::shared_ptr<Swaption>& swaption
+    ) {
+        boost::shared_ptr<CollectedResultCalculator> result;
+        LabelledQuotes greekInputs;
+        greekInputs.insert(std::make_pair("price", priceAndBump));
+
+        boost::shared_ptr<AdditionalResultCalculator> greekCalculator = boost::make_shared<GreekCalculator>(greekInputs, swaption);
+        boost::shared_ptr<AdditionalResultCalculator> vegaCalculator = boost::make_shared<HullWhiteVegaCalculator>(volAndBump, swaption);
+        boost::shared_ptr<AdditionalResultCalculator> treeProbCalculator = boost::make_shared<TreeCumulativeProbabilityCalculator1D>();
+        std::vector<boost::shared_ptr<AdditionalResultCalculator> > calculators;
+
+        calculators.push_back(greekCalculator);
+        calculators.push_back(treeProbCalculator);
+        result = boost::make_shared<CollectedResultCalculator>(calculators);
+
+        return result;
+    }
 }
 
 int main(int, char*[]) {
 
     try {
-
         boost::timer timer;
         std::cout << std::endl;
 
@@ -138,7 +173,7 @@ int main(int, char*[]) {
         Settings::instance().evaluationDate() = todaysDate;
 
         // flat yield term structure implying 1x5 swap at 5%
-        boost::shared_ptr<Quote> flatRate(new SimpleQuote(0.04875825));
+        boost::shared_ptr<SimpleQuote> flatRate(new SimpleQuote(0.04875825));
         Handle<YieldTermStructure> rhTermStructure(
             boost::shared_ptr<FlatForward>(
                 new FlatForward(settlementDate, Handle<Quote>(flatRate),
@@ -273,9 +308,15 @@ int main(int, char*[]) {
                 << "sigma = " << modelHW2->params()[1]
                 << std::endl << std::endl;
         }
+        //Adjust to your own taste.
+        const double deltaBump = 0.000001;
+        ShiftedQuote bumpAndPrice(deltaBump, flatRate);
+        const double vegaBump = 0.0001;
+        ShiftedModel bumpAndVol(vegaBump, modelHW);
+        //set up other result requests
         {
             //set up other result requests
-            boost::shared_ptr<AdditionalResultCalculator> resultCalculator(new TreeCumulativeProbabilityCalculator1D);
+            boost::shared_ptr<AdditionalResultCalculator> resultCalculator = boost::make_shared<TreeCumulativeProbabilityCalculator1D>();
             std::cout << "Black-Karasinski (numerical) calibration" << std::endl;
             for (i = 0; i < swaptions.size(); i++)
                 swaptions[i]->setPricingEngine(boost::shared_ptr<PricingEngine>(
@@ -306,43 +347,43 @@ int main(int, char*[]) {
         boost::shared_ptr<Exercise> bermudanExercise(
             new BermudanExercise(bermudanDates));
 
-        Swaption bermudanSwaption(atmSwap, bermudanExercise);
+        boost::shared_ptr<Swaption> bermudanSwaption = boost::make_shared<Swaption>(atmSwap, bermudanExercise);
 
         // Do the pricing for each model
 
         {// G2 price the European swaption here, it should switch to bermudan
-            bermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            bermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new TreeSwaptionEngine(modelG2, 50)));
-            std::cout << "G2 (tree):      " << bermudanSwaption.NPV() << std::endl;
-            bermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            std::cout << "G2 (tree):      " << bermudanSwaption->NPV() << std::endl;
+            bermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new FdG2SwaptionEngine(modelG2)));
-            std::cout << "G2 (fdm) :      " << bermudanSwaption.NPV() << std::endl;
+            std::cout << "G2 (fdm) :      " << bermudanSwaption->NPV() << std::endl;
         }
         {
-            boost::shared_ptr<AdditionalResultCalculator> resultCalculator(new TreeCumulativeProbabilityCalculator1D);
-            bermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            boost::shared_ptr<AdditionalResultCalculator> resultCalculator = buildResultCalculators(bumpAndPrice, bumpAndVol, bermudanSwaption);
+            bermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new TreeSwaptionEngine(modelHW, 50, Handle<YieldTermStructure>(), resultCalculator)));
-            std::cout << "HW (tree):      " << bermudanSwaption.NPV() << std::endl;
-            printExerciseProbabilities(std::cout, bermudanSwaption);
+            std::cout << "HW (tree):      " << bermudanSwaption->NPV() << std::endl;
+            printExerciseProbabilities(std::cout, *bermudanSwaption);
 
-            bermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            bermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new FdHullWhiteSwaptionEngine(modelHW)));
-            std::cout << "HW (fdm) :      " << bermudanSwaption.NPV() << std::endl;
+            std::cout << "HW (fdm) :      " << bermudanSwaption->NPV() << std::endl;
         }
         {
-            bermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            bermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new TreeSwaptionEngine(modelHW2, 50)));
-            std::cout << "HW (num, tree): " << bermudanSwaption.NPV() << std::endl;
-            bermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            std::cout << "HW (num, tree): " << bermudanSwaption->NPV() << std::endl;
+            bermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new FdHullWhiteSwaptionEngine(modelHW2)));
-            std::cout << "HW (num, fdm) : " << bermudanSwaption.NPV() << std::endl;
+            std::cout << "HW (num, fdm) : " << bermudanSwaption->NPV() << std::endl;
         }
         {
-            boost::shared_ptr<AdditionalResultCalculator> resultCalculator(new TreeCumulativeProbabilityCalculator1D);
-            bermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            boost::shared_ptr<AdditionalResultCalculator> resultCalculator = buildResultCalculators(bumpAndPrice, bumpAndVol, bermudanSwaption);
+            bermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new TreeSwaptionEngine(modelBK, 50, Handle<YieldTermStructure>(), resultCalculator)));
-            std::cout << "BK:             " << bermudanSwaption.NPV() << std::endl;
-            printExerciseProbabilities(std::cout, bermudanSwaption);
+            std::cout << "BK:             " << bermudanSwaption->NPV() << std::endl;
+            printExerciseProbabilities(std::cout, *bermudanSwaption);
         }
 
         // OTM Bermudan swaption pricing
@@ -351,48 +392,48 @@ int main(int, char*[]) {
             << "struck at " << io::rate(fixedOTMRate)
             << " (OTM)" << std::endl;
 
-        Swaption otmBermudanSwaption(otmSwap, bermudanExercise);
+        boost::shared_ptr<Swaption> otmBermudanSwaption = boost::make_shared<Swaption>(otmSwap, bermudanExercise);
 
         // Do the pricing for each model
         {
-            otmBermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            otmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new TreeSwaptionEngine(modelG2, 50)));
-            std::cout << "G2 (tree):       " << otmBermudanSwaption.NPV()
+            std::cout << "G2 (tree):       " << otmBermudanSwaption->NPV()
                 << std::endl;
-            otmBermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            otmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new FdG2SwaptionEngine(modelG2)));
-            std::cout << "G2 (fdm) :       " << otmBermudanSwaption.NPV()
+            std::cout << "G2 (fdm) :       " << otmBermudanSwaption->NPV()
                 << std::endl;
         }
         {
-            boost::shared_ptr<AdditionalResultCalculator> resultCalculator(new TreeCumulativeProbabilityCalculator1D);
-            otmBermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            boost::shared_ptr<AdditionalResultCalculator> resultCalculator = buildResultCalculators(bumpAndPrice, bumpAndVol, otmBermudanSwaption);
+            otmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new TreeSwaptionEngine(modelHW, 50, Handle<YieldTermStructure>(), resultCalculator)));
-            std::cout << "HW (tree):       " << otmBermudanSwaption.NPV()
+            std::cout << "HW (tree):       " << otmBermudanSwaption->NPV()
                 << std::endl;
-            printExerciseProbabilities(std::cout, otmBermudanSwaption);
-            otmBermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            printExerciseProbabilities(std::cout, *otmBermudanSwaption);
+            otmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new FdHullWhiteSwaptionEngine(modelHW)));
-            std::cout << "HW (fdm) :       " << otmBermudanSwaption.NPV()
+            std::cout << "HW (fdm) :       " << otmBermudanSwaption->NPV()
                 << std::endl;
         }
         {
-            otmBermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            otmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new TreeSwaptionEngine(modelHW2, 50)));
-            std::cout << "HW (num, tree):  " << otmBermudanSwaption.NPV()
+            std::cout << "HW (num, tree):  " << otmBermudanSwaption->NPV()
                 << std::endl;
-            otmBermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            otmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new FdHullWhiteSwaptionEngine(modelHW2)));
-            std::cout << "HW (num, fdm):   " << otmBermudanSwaption.NPV()
+            std::cout << "HW (num, fdm):   " << otmBermudanSwaption->NPV()
                 << std::endl;
         }
         {
-            boost::shared_ptr<AdditionalResultCalculator> resultCalculator(new TreeCumulativeProbabilityCalculator1D);
-            otmBermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            boost::shared_ptr<AdditionalResultCalculator> resultCalculator = buildResultCalculators(bumpAndPrice, bumpAndVol, otmBermudanSwaption);
+            otmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new TreeSwaptionEngine(modelBK, 50, Handle<YieldTermStructure>(), resultCalculator)));
-            std::cout << "BK:              " << otmBermudanSwaption.NPV()
+            std::cout << "BK:              " << otmBermudanSwaption->NPV()
                 << std::endl;
-            printExerciseProbabilities(std::cout, otmBermudanSwaption);
+            printExerciseProbabilities(std::cout, *otmBermudanSwaption);
         }
 
         // ITM Bermudan swaption pricing
@@ -401,48 +442,48 @@ int main(int, char*[]) {
             << "struck at " << io::rate(fixedITMRate)
             << " (ITM)" << std::endl;
 
-        Swaption itmBermudanSwaption(itmSwap, bermudanExercise);
+        boost::shared_ptr<Swaption> itmBermudanSwaption = boost::make_shared<Swaption>(itmSwap, bermudanExercise);
 
         // Do the pricing for each model
         {
-            itmBermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            itmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new TreeSwaptionEngine(modelG2, 50)));
-            std::cout << "G2 (tree):       " << itmBermudanSwaption.NPV()
+            std::cout << "G2 (tree):       " << itmBermudanSwaption->NPV()
                 << std::endl;
-            itmBermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            itmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new FdG2SwaptionEngine(modelG2)));
-            std::cout << "G2 (fdm) :       " << itmBermudanSwaption.NPV()
+            std::cout << "G2 (fdm) :       " << itmBermudanSwaption->NPV()
                 << std::endl;
         }
         {
-            boost::shared_ptr<AdditionalResultCalculator> resultCalculator(new TreeCumulativeProbabilityCalculator1D);
-            itmBermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            boost::shared_ptr<AdditionalResultCalculator> resultCalculator = buildResultCalculators(bumpAndPrice, bumpAndVol, itmBermudanSwaption);
+            itmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new TreeSwaptionEngine(modelHW, 50, Handle<YieldTermStructure>(), resultCalculator)));
-            std::cout << "HW (tree):       " << itmBermudanSwaption.NPV()
+            std::cout << "HW (tree):       " << itmBermudanSwaption->NPV()
                 << std::endl;
-            printExerciseProbabilities(std::cout, itmBermudanSwaption);
-            itmBermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            printExerciseProbabilities(std::cout, *itmBermudanSwaption);
+            itmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new FdHullWhiteSwaptionEngine(modelHW)));
-            std::cout << "HW (fdm) :       " << itmBermudanSwaption.NPV()
+            std::cout << "HW (fdm) :       " << itmBermudanSwaption->NPV()
                 << std::endl;
         }
         {
-            itmBermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            itmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new TreeSwaptionEngine(modelHW2, 50)));
-            std::cout << "HW (num, tree):  " << itmBermudanSwaption.NPV()
+            std::cout << "HW (num, tree):  " << itmBermudanSwaption->NPV()
                 << std::endl;
-            itmBermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            itmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new FdHullWhiteSwaptionEngine(modelHW2)));
-            std::cout << "HW (num, fdm) :  " << itmBermudanSwaption.NPV()
+            std::cout << "HW (num, fdm) :  " << itmBermudanSwaption->NPV()
                 << std::endl;
         }
         {
-            boost::shared_ptr<AdditionalResultCalculator> resultCalculator(new TreeCumulativeProbabilityCalculator1D);
-            itmBermudanSwaption.setPricingEngine(boost::shared_ptr<PricingEngine>(
+            boost::shared_ptr<AdditionalResultCalculator> resultCalculator = buildResultCalculators(bumpAndPrice, bumpAndVol, itmBermudanSwaption);
+            itmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new TreeSwaptionEngine(modelBK, 50, Handle<YieldTermStructure>(), resultCalculator)));
-            std::cout << "BK:              " << itmBermudanSwaption.NPV()
+            std::cout << "BK:              " << itmBermudanSwaption->NPV()
                 << std::endl;
-            printExerciseProbabilities(std::cout, itmBermudanSwaption);
+            printExerciseProbabilities(std::cout, *itmBermudanSwaption);
         }
         double seconds = timer.elapsed();
         Integer hours = int(seconds / 3600);
