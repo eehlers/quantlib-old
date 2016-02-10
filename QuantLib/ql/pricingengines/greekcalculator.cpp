@@ -4,7 +4,7 @@
 
 #include <ql/pricingengines/greekcalculator.hpp>
 #include <ql/discretizedasset.hpp>
-
+#include <iostream>
 
 
 namespace QuantLib {
@@ -16,6 +16,8 @@ namespace QuantLib {
     }
 
     void GreekCalculator::calculateAdditionalResults() {
+
+        calculating_ = true;
         double pv = instrument_->NPV();
         ShiftedQuote shiftedQuote = underliers_.at("price");
         //delta
@@ -42,11 +44,12 @@ namespace QuantLib {
         shiftedQuote.quote_->setValue(rateDown);
         pvDown = instrument_->NPV();
 
-        double gamma = (pvUp + 2.* pv- pvDown) / (2. * shiftedQuote.shift_);
+        double gamma = (pvUp + 2.* pv- pvDown) / (2. * shiftedQuote.shift_ * shiftedQuote.shift_);
 
         additionalResults_["gamma"] = gamma;
         //tidy up by setting things as they were.
         shiftedQuote.quote_->setValue(rate);
+        calculating_ = false;
     }
 
     HullWhiteVegaCalculator::HullWhiteVegaCalculator(
@@ -56,12 +59,14 @@ namespace QuantLib {
     }
 
     void HullWhiteVegaCalculator::calculateAdditionalResults() {
+        calculating_ = true;
+
         double pv = instrument_->NPV();
         //vega
         double rate = model_.model_->params()[0];
         double vol = model_.model_->params()[1];
         double volUp = vol + model_.shift_;
-        Array params;
+        Array params(2);
 
         params[0] = rate; params[1] = volUp;
         model_.model_->setParams(params);
@@ -78,6 +83,7 @@ namespace QuantLib {
         //tidy up by setting things as they were.
         params[1] = vol;
         model_.model_->setParams(params);
+        calculating_ = false;
     }
 
 }

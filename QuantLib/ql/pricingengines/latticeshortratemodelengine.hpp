@@ -42,34 +42,34 @@ namespace QuantLib {
         LatticeShortRateModelEngine(
                                const boost::shared_ptr<ShortRateModel>& model,
                                Size timeSteps,
-			                   const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator =
-			                   boost::shared_ptr<AdditionalResultCalculator>());
+                               const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator =
+                               std::vector<boost::shared_ptr<AdditionalResultCalculator> >());
         LatticeShortRateModelEngine(
                                const Handle<ShortRateModel>& model,
                                Size timeSteps,
-			                   const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator =
-			                   boost::shared_ptr<AdditionalResultCalculator>());
+                               const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator =
+                               std::vector<boost::shared_ptr<AdditionalResultCalculator> >());
         LatticeShortRateModelEngine(
                                const boost::shared_ptr<ShortRateModel>& model,
                                const TimeGrid& timeGrid,
-			                   const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator =
-			                   boost::shared_ptr<AdditionalResultCalculator>());
+                               const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator =
+                               std::vector<boost::shared_ptr<AdditionalResultCalculator> >());
         void update();
       protected:
         TimeGrid timeGrid_;
         Size timeSteps_;
         boost::shared_ptr<Lattice> lattice_;
-		boost::shared_ptr<AdditionalResultCalculator> additionalResultCalculator_;
+		std::vector<boost::shared_ptr<AdditionalResultCalculator> > additionalResultCalculators_;
     };
 
     template <class Arguments, class Results>
     LatticeShortRateModelEngine<Arguments, Results>::LatticeShortRateModelEngine(
             const boost::shared_ptr<ShortRateModel>& model,
             Size timeSteps,
-            const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator)
+            const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator)
     : GenericModelEngine<ShortRateModel, Arguments, Results>(model),
       timeSteps_(timeSteps),
-      additionalResultCalculator_(additionalResultCalculator) {
+      additionalResultCalculators_(additionalResultCalculator) {
         QL_REQUIRE(timeSteps>0,
                    "timeSteps must be positive, " << timeSteps <<
                    " not allowed");
@@ -79,10 +79,10 @@ namespace QuantLib {
     LatticeShortRateModelEngine<Arguments, Results>::LatticeShortRateModelEngine(
             const Handle<ShortRateModel>& model,
             Size timeSteps,
-            const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator)
+            const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator)
     : GenericModelEngine<ShortRateModel, Arguments, Results>(model),
       timeSteps_(timeSteps),
-      additionalResultCalculator_(additionalResultCalculator) {
+      additionalResultCalculators_(additionalResultCalculator) {
         QL_REQUIRE(timeSteps>0,
                    "timeSteps must be positive, " << timeSteps <<
                    " not allowed");
@@ -92,11 +92,11 @@ namespace QuantLib {
     LatticeShortRateModelEngine<Arguments, Results>::LatticeShortRateModelEngine(
             const boost::shared_ptr<ShortRateModel>& model,
             const TimeGrid& timeGrid,
-            const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator)
+            const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator)
     : GenericModelEngine<ShortRateModel, Arguments, Results>(model),
       timeGrid_(timeGrid), timeSteps_(0),
-      additionalResultCalculator_(additionalResultCalculator) {
-        lattice_ = this->model_->tree(timeGrid, additionalResultCalculator_);
+      additionalResultCalculators_(additionalResultCalculator) {
+        lattice_ = this->model_->tree(timeGrid, additionalResultCalculators_);
     }
 
     template <class Arguments, class Results>

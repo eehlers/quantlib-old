@@ -28,7 +28,7 @@ namespace QuantLib {
 
     boost::shared_ptr<Lattice>
     TwoFactorModel::tree(const TimeGrid& grid,
-						 const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator) const {
+						 const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator) const {
 
         boost::shared_ptr<ShortRateDynamics> dyn = dynamics();
 

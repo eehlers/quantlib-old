@@ -33,6 +33,7 @@ namespace QuantLib {
 	class DiscretizedAsset;
 	struct AdditionalResultCalculator {
 		AdditionalResultCalculator();
+        bool calculating() const;
 
 		virtual std::map<std::string, boost::any> additionalResults() const;
 
@@ -42,7 +43,8 @@ namespace QuantLib {
 
 		virtual ~AdditionalResultCalculator();
 	protected:
-		std::map<std::string, boost::any> additionalResults_;
+        static bool calculating_;
+		static std::map<std::string, boost::any> additionalResults_;
 	};
 
 	struct CollectedResultCalculator : virtual public AdditionalResultCalculator{
@@ -52,6 +54,15 @@ namespace QuantLib {
 		CollectedResultCalculator();
 
         CollectedResultCalculator(const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& calculators);
+        template<typename T>
+        operator boost::shared_ptr<T>() {
+            for (const_iterator ptr = calculators_.begin(); ptr != calculators_.end(); ++ptr) {
+                if(boost::dynamic_pointer_cast<T>(*ptr)) {
+                    return *ptr;
+                }
+            }
+            return boost::shared_ptr<T>();
+        }
 
         CollectedResultCalculator(const CollectedResultCalculator& calculator);
 

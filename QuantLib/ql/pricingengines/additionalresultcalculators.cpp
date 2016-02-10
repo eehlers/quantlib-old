@@ -21,9 +21,14 @@ FOR A PARTICULAR PURPOSE.  See the license for more details.
 #include <ql/pricingengines/additionalresultcalculators.hpp>
 #include <ql/discretizedasset.hpp>
 #include <ql/time/date.hpp>
+#include <iostream>
 
 namespace QuantLib {
 	AdditionalResultCalculator::AdditionalResultCalculator() {}
+
+    bool AdditionalResultCalculator::calculating() const {
+        return calculating_;
+    }
 
 	std::map<std::string, boost::any> AdditionalResultCalculator::additionalResults() const {
 		return additionalResults_;
@@ -34,7 +39,7 @@ namespace QuantLib {
 	}
 
 	void AdditionalResultCalculator::calculateAdditionalResults() {
-	}
+    }
 
 	AdditionalResultCalculator::~AdditionalResultCalculator() {}
     CollectedResultCalculator::CollectedResultCalculator() {}
@@ -69,8 +74,12 @@ namespace QuantLib {
 
     void CollectedResultCalculator::calculateAdditionalResults(
     ) {
+        calculating_ = true;
         for (const_iterator ptr = calculators_.cbegin(); ptr != calculators_.cend(); ++ptr) {
             (*ptr)->calculateAdditionalResults();
         }
+        calculating_ = false;
     }
+    bool AdditionalResultCalculator::calculating_;
+    std::map<std::string, boost::any> AdditionalResultCalculator::additionalResults_;
 }

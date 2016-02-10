@@ -54,20 +54,20 @@ namespace QuantLib {
                            Size timeSteps,
                            const Handle<YieldTermStructure>& termStructure =
                                                  Handle<YieldTermStructure>(),
-						   const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator =
-												 boost::shared_ptr<AdditionalResultCalculator>());
+						   const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator =
+												 std::vector<boost::shared_ptr<AdditionalResultCalculator> >());
         TreeSwaptionEngine(const boost::shared_ptr<ShortRateModel>&,
                            const TimeGrid& timeGrid,
                            const Handle<YieldTermStructure>& termStructure =
                                                  Handle<YieldTermStructure>(),
-						   const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator =
-												 boost::shared_ptr<AdditionalResultCalculator>());
+                           const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator =
+                           std::vector<boost::shared_ptr<AdditionalResultCalculator> >());
         TreeSwaptionEngine(const Handle<ShortRateModel>&,
                            Size timeSteps,
                            const Handle<YieldTermStructure>& termStructure =
                                                  Handle<YieldTermStructure>(),
-						   const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator = 
-												 boost::shared_ptr<AdditionalResultCalculator>());
+                           const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator =
+                           std::vector<boost::shared_ptr<AdditionalResultCalculator> >());
         //@}
         void calculate() const;
       private:

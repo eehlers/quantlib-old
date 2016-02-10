@@ -68,7 +68,7 @@ namespace QuantLib {
 
     boost::shared_ptr<Lattice>
     BlackKarasinski::tree(const TimeGrid& grid,
-        const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator) const {
+        const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator) const {
 
         TermStructureFittingParameter phi(termStructure());
 
@@ -99,11 +99,13 @@ namespace QuantLib {
             // vMin = value - 10.0;
             // vMax = value + 10.0;
         }
-        if (additionalResultCalculator) {
-            boost::shared_ptr<TreeCumulativeProbabilityCalculator1D> cumulativeProbCalculator =
-                boost::dynamic_pointer_cast<TreeCumulativeProbabilityCalculator1D>(additionalResultCalculator);
-            if (cumulativeProbCalculator) {
-                cumulativeProbCalculator->setTree(numericTree);
+        for (size_t i = 0; i < additionalResultCalculator.size(); ++i) {
+            if (additionalResultCalculator[i] && !additionalResultCalculator[i]->calculating()) {
+                boost::shared_ptr<TreeCumulativeProbabilityCalculator1D> cumulativeProbCalculator =
+                    boost::dynamic_pointer_cast<TreeCumulativeProbabilityCalculator1D>(additionalResultCalculator[i]);
+                if (cumulativeProbCalculator) {
+                    cumulativeProbCalculator->setTree(numericTree);
+                }
             }
         }
         return numericTree;

@@ -138,8 +138,8 @@ namespace QuantLib {
       public:
         ShortRateModel(Size nArguments);
         virtual boost::shared_ptr<Lattice> tree(const TimeGrid&,
-			const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator =
-			boost::shared_ptr<AdditionalResultCalculator>()) const = 0;
+			const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator =
+			std::vector<boost::shared_ptr<AdditionalResultCalculator> >()) const = 0;
     };
 
 

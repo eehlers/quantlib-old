@@ -48,8 +48,8 @@ namespace QuantLib {
 
         //! Return by default a trinomial recombining tree
         boost::shared_ptr<Lattice> tree(const TimeGrid& grid, 
-										const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator = 
-											boost::shared_ptr<AdditionalResultCalculator>()) const;
+										const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator =
+											std::vector<boost::shared_ptr<AdditionalResultCalculator> >()) const;
     };
 
     //! Base class describing the short-rate dynamics

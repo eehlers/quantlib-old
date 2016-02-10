@@ -34,7 +34,6 @@ namespace QuantLib {
      * */
     struct GreekCalculator : virtual public AdditionalResultCalculator {
         GreekCalculator(const LabelledQuotes& underliers, const boost::shared_ptr<Instrument>& instrument);
-
         void calculateAdditionalResults() ;
     private:
         const LabelledQuotes underliers_;

@@ -25,10 +25,10 @@
 namespace QuantLib {
 
     TreeSwaptionEngine::TreeSwaptionEngine(
-                               const boost::shared_ptr<ShortRateModel>& model,
+                              const boost::shared_ptr<ShortRateModel>& model,
                               Size timeSteps,
                               const Handle<YieldTermStructure>& termStructure,
-							  const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator)
+                              const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator)
     : LatticeShortRateModelEngine<Swaption::arguments,
                                   Swaption::results>(model, timeSteps, additionalResultCalculator),
       termStructure_(termStructure) {
@@ -39,7 +39,7 @@ namespace QuantLib {
                               const boost::shared_ptr<ShortRateModel>& model,
                               const TimeGrid& timeGrid,
                               const Handle<YieldTermStructure>& termStructure,
-							  const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator)
+                              const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator)
     : LatticeShortRateModelEngine<Swaption::arguments,
                                   Swaption::results>(model, timeGrid, additionalResultCalculator),
       termStructure_(termStructure) {
@@ -50,7 +50,7 @@ namespace QuantLib {
                               const Handle<ShortRateModel>& model,
                               Size timeSteps,
                               const Handle<YieldTermStructure>& termStructure,
-							  const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator)
+                              const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator)
     : LatticeShortRateModelEngine<Swaption::arguments,
                                   Swaption::results>(model, timeSteps, additionalResultCalculator),
       termStructure_(termStructure) {
@@ -77,11 +77,13 @@ namespace QuantLib {
         }
 
         boost::shared_ptr<DiscretizedSwaption> swaption(new DiscretizedSwaption(arguments_, referenceDate, dayCounter));
-        
-        if (additionalResultCalculator_) {
-            additionalResultCalculator_->setupDiscretizedAsset(swaption);
+
+        for (size_t i = 0; i < additionalResultCalculators_.size(); ++i) {
+            if (additionalResultCalculators_[i]) {
+                additionalResultCalculators_[i]->setupDiscretizedAsset(swaption);
+            }
         }
-        
+
         boost::shared_ptr<Lattice> lattice;
 
         if (lattice_) {
@@ -89,7 +91,8 @@ namespace QuantLib {
         } else {
             std::vector<Time> times = swaption->mandatoryTimes();
             TimeGrid timeGrid(times.begin(), times.end(), timeSteps_);
-            lattice = model_->tree(timeGrid, additionalResultCalculator_);
+
+            lattice = model_->tree(timeGrid, additionalResultCalculators_);
         }
 
         std::vector<Time> stoppingTimes(arguments_.exercise->dates().size());
@@ -106,9 +109,11 @@ namespace QuantLib {
                           std::bind2nd(std::greater_equal<Time>(), 0.0));
         swaption->rollback(nextExercise);
         results_.value = swaption->presentValue();
-        if (additionalResultCalculator_) {
-            additionalResultCalculator_->calculateAdditionalResults();
-            results_.additionalResults = additionalResultCalculator_->additionalResults();
+        for (size_t i = 0; i < additionalResultCalculators_.size(); ++i) {
+            if (additionalResultCalculators_[i] && !additionalResultCalculators_[i]->calculating()) {
+                additionalResultCalculators_[i]->calculateAdditionalResults();
+                results_.additionalResults = additionalResultCalculators_[i]->additionalResults();
+            }
         }
     }
 

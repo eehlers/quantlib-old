@@ -95,17 +95,21 @@ namespace QuantLib {
 
     boost::shared_ptr<Lattice>
     OneFactorModel::tree(const TimeGrid& grid,
-						 const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator) const {
+						 const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator
+    ) const {
         boost::shared_ptr<TrinomialTree> trinomial(
                               new TrinomialTree(dynamics()->process(), grid));
 		boost::shared_ptr<ShortRateTree> rateTree(new ShortRateTree(trinomial, dynamics(), grid));
-		if (additionalResultCalculator) {
-			boost::shared_ptr<TreeCumulativeProbabilityCalculator1D> cumulativeProbCalculator =
-				boost::dynamic_pointer_cast<TreeCumulativeProbabilityCalculator1D>(additionalResultCalculator);
-			if (cumulativeProbCalculator) {
-				cumulativeProbCalculator->setTree(rateTree);
-			}
-		}
+        //take the first tree probability calculator
+        for (size_t i = 0; i < additionalResultCalculator.size(); ++i) {
+            if (additionalResultCalculator[i]) {
+                boost::shared_ptr<TreeCumulativeProbabilityCalculator1D> cumulativeProbCalculator =
+                    boost::dynamic_pointer_cast<TreeCumulativeProbabilityCalculator1D>(additionalResultCalculator[i]);
+                if (cumulativeProbCalculator) {
+                    cumulativeProbCalculator->setTree(rateTree);
+                }
+            }
+        }
 		return boost::dynamic_pointer_cast<Lattice>(rateTree);
     }
 

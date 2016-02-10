@@ -46,8 +46,8 @@ namespace QuantLib {
 
         //! Returns a two-dimensional trinomial tree
         boost::shared_ptr<Lattice> tree(const TimeGrid& grid,
-										const boost::shared_ptr<AdditionalResultCalculator>& additionalResultCalculator =
-										boost::shared_ptr<AdditionalResultCalculator>()) const;
+										const std::vector<boost::shared_ptr<AdditionalResultCalculator> >& additionalResultCalculator =
+										std::vector<boost::shared_ptr<AdditionalResultCalculator> >()) const;
 
     };
 

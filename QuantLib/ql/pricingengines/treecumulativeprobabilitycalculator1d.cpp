@@ -44,6 +44,7 @@ namespace QuantLib{
     }
 
 	void TreeCumulativeProbabilityCalculator1D::calculateAdditionalResults() {
+		calculating_ = true;
         computeCumulativeProbabilities();
 		boost::shared_ptr<std::map<Date, std::pair<double, double> > > result(new std::map<Date, std::pair<double, double> >);
 		
@@ -52,6 +53,7 @@ namespace QuantLib{
 		}
 
 		additionalResults_["ExerciseProbabilityAndSwapBoundary"] = result;
+		calculating_ = false;
 	}
 
 	void TreeCumulativeProbabilityCalculator1D::setTree(const boost::shared_ptr<OneFactorModel::ShortRateTree>& tree) {
@@ -92,7 +94,7 @@ namespace QuantLib{
 		for (Integer timePt = 1; timePt < static_cast<Integer>(times.size()); ++timePt) {
 			Size priceIdCount = tree_->size(timePt);
 			if (timePt == exerciseTimeAndLevel.first) {
-				priceIdCount = exerciseTimeAndLevel.second + 1;
+			priceIdCount = exerciseTimeAndLevel.second + 1;
 				if (!exerciseTimesAndLevels.empty()) {
                     exerciseTimeAndLevel = exerciseTimesAndLevels.top(); exerciseTimesAndLevels.pop();
 				}
