@@ -310,9 +310,9 @@ int main(int, char*[]) {
                 << std::endl << std::endl;
         }
         //Adjust to your own taste.
-        const double deltaBump = 0.000001;
+        const double deltaBump = 0.001;
         ShiftedQuote bumpAndPrice(deltaBump, flatRate);
-        const double vegaBump = 0.0001;
+        const double vegaBump = 0.01;
         ShiftedModel bumpAndVol(vegaBump, modelHW);
         //set up other result requests
         {

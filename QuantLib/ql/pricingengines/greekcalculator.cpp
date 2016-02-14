@@ -32,7 +32,7 @@ namespace QuantLib {
         shiftedQuote.quote_->setValue(rateDown);
         double pvDown = instrument_->NPV();
 
-        double delta = (pvUp - pvDown) / shiftedQuote.shift_;
+        double delta = (pvUp - pvDown) / (2.*shiftedQuote.shift_);
         additionalResults_["delta"] = delta;
 
         //gamma
@@ -44,7 +44,7 @@ namespace QuantLib {
         shiftedQuote.quote_->setValue(rateDown);
         pvDown = instrument_->NPV();
 
-        double gamma = (pvUp + 2.* pv- pvDown) / (2. * shiftedQuote.shift_ * shiftedQuote.shift_);
+        double gamma = (pvUp + 2.* pv- pvDown) / (4. * shiftedQuote.shift_ * shiftedQuote.shift_);
 
         additionalResults_["gamma"] = gamma;
         //tidy up by setting things as they were.
@@ -78,7 +78,7 @@ namespace QuantLib {
         instrument_->recalculate();
         double pvDown = instrument_->NPV();
 
-        double delta = (pvUp - pvDown) / model_.shift_;
+        double delta = (pvUp - pvDown) / (2.*model_.shift_);
         additionalResults_["vega"] = delta;
         //tidy up by setting things as they were.
         params[1] = vol;
