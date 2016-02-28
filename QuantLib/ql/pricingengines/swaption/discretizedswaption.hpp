@@ -40,10 +40,12 @@ namespace QuantLib {
         void reset(Size size);
         const boost::shared_ptr<std::vector<std::pair<bool, std::pair<Size, Real> > > > exerciseIndex() const;
 		const std::vector<Date>& exerciseDates() const;
+        const VanillaSwap::Type type() const;
 	protected:
         void postAdjustValuesImpl();
 		void applyExerciseCondition(Time exerciseTime);
       private:
+
         Swaption::arguments arguments_;
         Time lastPayment_;
 		Array exerciseMargins_;

@@ -111,6 +111,10 @@ namespace QuantLib {
 		return arguments_.exercise->dates();
 	}
 
+    const VanillaSwap::Type DiscretizedSwaption::type () const {
+        return arguments_.type;
+    }
+
     void DiscretizedSwaption::postAdjustValuesImpl() {
         /* In the real world, with time flowing forward, first
         any payment is settled and only after options can be
@@ -139,7 +143,24 @@ namespace QuantLib {
 	void DiscretizedSwaption::applyExerciseCondition(Time exerciseTime) {
         std::pair<bool, std::pair<Size, Real> > exercised = std::make_pair(false, std::make_pair(0u, 0.0));
         exerciseMargins_ = Array(values_.size());
-        for (Size i = 0u; i < values_.size(); i++) {
+        Integer begin, end, increment;
+
+        switch (arguments_.type) {
+            case VanillaSwap::Payer:
+                begin = 0;
+                end = static_cast<Integer>(values_.size());
+                increment = 1;
+            break;
+            case VanillaSwap::Receiver:
+                begin = static_cast<Integer>(values_.size()) - 1;
+                end = -1;
+                increment = -1;
+            break;
+            default:
+                QL_FAIL("Invalid swap type.  Must be one of VanillaSwap::Payer, VanillaSwap::Receiver.");
+        }
+
+        for (Size i = begin; i != end; i += increment) {
             exerciseMargins_[i] = underlyingAsSwapStrip_->swap(exerciseIdx_).values()[i] - values_[i];
             values_[i] = std::max(underlyingAsSwapStrip_->swap(exerciseIdx_).values()[i], values_[i]);
             if (!exercised.first && exerciseMargins_[i] > 0.0) {

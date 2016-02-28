@@ -147,16 +147,16 @@ namespace {
         const ShiftedModel& volAndBump,
         const boost::shared_ptr<Swaption>& swaption
     ) {
-        LabelledQuotes greekInputs;
-        greekInputs.insert(std::make_pair("price", priceAndBump));
+        //LabelledQuotes greekInputs;
+        //greekInputs.insert(std::make_pair("price", priceAndBump));
 
-        boost::shared_ptr<AdditionalResultCalculator> greekCalculator = boost::make_shared<GreekCalculator>(greekInputs, swaption);
-        boost::shared_ptr<AdditionalResultCalculator> vegaCalculator = boost::make_shared<HullWhiteVegaCalculator>(volAndBump, swaption);
+        //boost::shared_ptr<AdditionalResultCalculator> greekCalculator = boost::make_shared<GreekCalculator>(greekInputs, swaption);
+        //boost::shared_ptr<AdditionalResultCalculator> vegaCalculator = boost::make_shared<HullWhiteVegaCalculator>(volAndBump, swaption);
         boost::shared_ptr<AdditionalResultCalculator> treeProbCalculator = boost::make_shared<TreeCumulativeProbabilityCalculator1D>();
         std::vector<boost::shared_ptr<AdditionalResultCalculator> > result;
 
-        result.push_back(greekCalculator);
-        result.push_back(vegaCalculator);
+        //result.push_back(greekCalculator);
+        //result.push_back(vegaCalculator);
         result.push_back(treeProbCalculator);
 
         return result;
@@ -187,7 +187,7 @@ int main(int, char*[]) {
         BusinessDayConvention floatingLegConvention = ModifiedFollowing;
         DayCounter fixedLegDayCounter = Thirty360(Thirty360::European);
         Frequency floatingLegFrequency = Semiannual;
-        VanillaSwap::Type type = VanillaSwap::Payer;
+        VanillaSwap::Type type = VanillaSwap::Receiver;
         Rate dummyFixedRate = 0.03;
         boost::shared_ptr<IborIndex> indexSixMonths(new
             Euribor6M(rhTermStructure));
@@ -385,7 +385,7 @@ int main(int, char*[]) {
                 new TreeSwaptionEngine(modelBK, 50, Handle<YieldTermStructure>(), resultCalculator)));
             std::cout << "BK:             " << bermudanSwaption->NPV() << std::endl;
             printExerciseProbabilities(std::cout, *bermudanSwaption);
-            printGreekValues(std::cout, *bermudanSwaption);
+            //printGreekValues(std::cout, *bermudanSwaption);
         }
 
         // OTM Bermudan swaption pricing
@@ -436,7 +436,7 @@ int main(int, char*[]) {
             std::cout << "BK:              " << otmBermudanSwaption->NPV()
                 << std::endl;
             printExerciseProbabilities(std::cout, *otmBermudanSwaption);
-            printGreekValues(std::cout, *otmBermudanSwaption);
+            //printGreekValues(std::cout, *otmBermudanSwaption);
         }
 
         // ITM Bermudan swaption pricing
@@ -487,7 +487,7 @@ int main(int, char*[]) {
             std::cout << "BK:              " << itmBermudanSwaption->NPV()
                 << std::endl;
             printExerciseProbabilities(std::cout, *itmBermudanSwaption);
-            printGreekValues(std::cout, *itmBermudanSwaption);
+            //printGreekValues(std::cout, *itmBermudanSwaption);
         }
         double seconds = timer.elapsed();
         Integer hours = int(seconds / 3600);

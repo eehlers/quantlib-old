@@ -26,6 +26,7 @@ FOR A PARTICULAR PURPOSE.  See the license for more details.
 
 #include <ql/pricingengines/additionalresultcalculators.hpp>
 #include <ql/models/shortrate/onefactormodel.hpp>
+#include <ql/instruments/vanillaswap.hpp>
 
 
 namespace QuantLib {
@@ -50,6 +51,7 @@ namespace QuantLib {
 		std::vector<Date> exerciseDates_;   //all exercise dates, future and past.
 		std::vector<std::vector<std::pair<Real, Real> > > cumulativeProbs_;
 		Date referenceDate_;
+		VanillaSwap::Type swapType_;
 	};
 }
 #endif

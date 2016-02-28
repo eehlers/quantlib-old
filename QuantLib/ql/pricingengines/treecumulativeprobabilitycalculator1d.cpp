@@ -30,6 +30,7 @@ namespace QuantLib{
 			setExerciseIndex(swaption->exerciseIndex());
 			std::vector<Date> tempExercised = swaption->exerciseDates();
 			int negativeDateCount = static_cast<int>(tempExercised.size()) - exerciseTimes_.size();
+            swapType_ = swaption->type();
 
 			QL_REQUIRE(negativeDateCount >= 0, "Exercise dates definition error.  The number of past exercise days should be positive by construction.");
 			exerciseDates_.resize(tempExercised.size());
@@ -141,7 +142,11 @@ namespace QuantLib{
         const std::pair<bool, std::pair<Size, Real> >& exercise = (*exerciseIndex_)[exerciseTimeId];
 		if (exercise.first == true) {
             Size exerciseDateId = tree_->timeGrid().index(exerciseTimes_[exerciseTimeId]);
-            return std::make_pair(1.0 - cumulativeProbs_[exerciseDateId][exercise.second.first].first, exercise.second.second);
+			double cumulativeProb = cumulativeProbs_[exerciseDateId][exercise.second.first].first;
+            if(swapType_ == VanillaSwap::Payer) {
+                cumulativeProb = 1.0 - cumulativeProb;
+            }
+			return std::make_pair(cumulativeProb, exercise.second.second);
 		}
 		else {
 			return std::make_pair(0.0, std::numeric_limits<double>::quiet_NaN());
