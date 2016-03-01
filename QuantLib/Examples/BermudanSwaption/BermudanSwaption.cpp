@@ -125,10 +125,17 @@ namespace {
         }
     }
 
-    void printGreekValues(std::ostream& out, const Swaption& swaption) {
-        typedef std::map<std::string, boost::any> result_map;
-        const result_map all_results = swaption.additionalResults();
+    typedef std::map<std::string, boost::any> result_map;
 
+    void printGreekValues(
+        std::ostream& out,
+        const boost::shared_ptr<Swaption>& swaption,
+        const ShiftedQuote& priceAndBump,
+        const ShiftedModel& volAndBump
+    ) {
+        result_map all_results = swaption->additionalResults();
+        calculateDeltaAndGamma(all_results, priceAndBump, swaption);
+        calculateHullWhiteVega(all_results, volAndBump, swaption);
         result_map::const_iterator delta_ptr = all_results.find("delta");
         result_map::const_iterator vega_ptr = all_results.find("vega");
 
@@ -147,8 +154,8 @@ namespace {
         const ShiftedModel& volAndBump,
         const boost::shared_ptr<Swaption>& swaption
     ) {
-        //LabelledQuotes greekInputs;
-        //greekInputs.insert(std::make_pair("price", priceAndBump));
+        LabelledQuotes greekInputs;
+        greekInputs.insert(std::make_pair("price", priceAndBump));
 
         //boost::shared_ptr<AdditionalResultCalculator> greekCalculator = boost::make_shared<GreekCalculator>(greekInputs, swaption);
         //boost::shared_ptr<AdditionalResultCalculator> vegaCalculator = boost::make_shared<HullWhiteVegaCalculator>(volAndBump, swaption);
@@ -309,11 +316,6 @@ int main(int, char*[]) {
                 << "sigma = " << modelHW2->params()[1]
                 << std::endl << std::endl;
         }
-        //Adjust to your own taste.
-        const double deltaBump = 0.001;
-        ShiftedQuote bumpAndPrice(deltaBump, flatRate);
-        const double vegaBump = 0.01;
-        ShiftedModel bumpAndVol(vegaBump, modelHW);
         //set up other result requests
         {
             //set up other result requests
@@ -349,6 +351,11 @@ int main(int, char*[]) {
             new BermudanExercise(bermudanDates));
 
         boost::shared_ptr<Swaption> bermudanSwaption = boost::make_shared<Swaption>(atmSwap, bermudanExercise);
+        //Adjust to your own taste.
+        const double deltaBump = 0.001;
+        ShiftedQuote bumpAndPrice(deltaBump, flatRate);
+        const double vegaBump = 0.001;
+        ShiftedModel bumpAndVol(vegaBump, modelHW);
 
         // Do the pricing for each model
 
@@ -365,7 +372,8 @@ int main(int, char*[]) {
             bermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new TreeSwaptionEngine(modelHW, 50, Handle<YieldTermStructure>(), resultCalculator)));
             std::cout << "HW (tree):      " << bermudanSwaption->NPV() << std::endl;
-            printExerciseProbabilities(std::cout, *bermudanSwaption);
+            //printExerciseProbabilities(std::cout, *bermudanSwaption);
+            printGreekValues(std::cout, bermudanSwaption, bumpAndPrice, bumpAndVol);
 
             bermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new FdHullWhiteSwaptionEngine(modelHW)));
@@ -384,7 +392,7 @@ int main(int, char*[]) {
             bermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new TreeSwaptionEngine(modelBK, 50, Handle<YieldTermStructure>(), resultCalculator)));
             std::cout << "BK:             " << bermudanSwaption->NPV() << std::endl;
-            printExerciseProbabilities(std::cout, *bermudanSwaption);
+            //printExerciseProbabilities(std::cout, *bermudanSwaption);
             //printGreekValues(std::cout, *bermudanSwaption);
         }
 
@@ -396,6 +404,8 @@ int main(int, char*[]) {
 
         boost::shared_ptr<Swaption> otmBermudanSwaption = boost::make_shared<Swaption>(otmSwap, bermudanExercise);
 
+        //Adjust to your own taste.
+        ShiftedQuote otmBumpAndPrice(deltaBump, flatRate);
         // Do the pricing for each model
         {
             otmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
@@ -413,7 +423,8 @@ int main(int, char*[]) {
                 new TreeSwaptionEngine(modelHW, 50, Handle<YieldTermStructure>(), resultCalculator)));
             std::cout << "HW (tree):       " << otmBermudanSwaption->NPV()
                 << std::endl;
-            printExerciseProbabilities(std::cout, *otmBermudanSwaption);
+            //printExerciseProbabilities(std::cout, *otmBermudanSwaption);
+            printGreekValues(std::cout, otmBermudanSwaption, otmBumpAndPrice, bumpAndVol);
             otmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new FdHullWhiteSwaptionEngine(modelHW)));
             std::cout << "HW (fdm) :       " << otmBermudanSwaption->NPV()
@@ -435,7 +446,7 @@ int main(int, char*[]) {
                 new TreeSwaptionEngine(modelBK, 50, Handle<YieldTermStructure>(), resultCalculator)));
             std::cout << "BK:              " << otmBermudanSwaption->NPV()
                 << std::endl;
-            printExerciseProbabilities(std::cout, *otmBermudanSwaption);
+            //printExerciseProbabilities(std::cout, *otmBermudanSwaption);
             //printGreekValues(std::cout, *otmBermudanSwaption);
         }
 
@@ -447,6 +458,8 @@ int main(int, char*[]) {
 
         boost::shared_ptr<Swaption> itmBermudanSwaption = boost::make_shared<Swaption>(itmSwap, bermudanExercise);
 
+        //Adjust to your own taste.
+        ShiftedQuote itmBumpAndPrice(deltaBump, flatRate);
         // Do the pricing for each model
         {
             itmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
@@ -464,7 +477,8 @@ int main(int, char*[]) {
                 new TreeSwaptionEngine(modelHW, 50, Handle<YieldTermStructure>(), resultCalculator)));
             std::cout << "HW (tree):       " << itmBermudanSwaption->NPV()
                 << std::endl;
-            printExerciseProbabilities(std::cout, *itmBermudanSwaption);
+            //printExerciseProbabilities(std::cout, *itmBermudanSwaption);
+            printGreekValues(std::cout, itmBermudanSwaption, itmBumpAndPrice, bumpAndVol);
             itmBermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new FdHullWhiteSwaptionEngine(modelHW)));
             std::cout << "HW (fdm) :       " << itmBermudanSwaption->NPV()
@@ -486,7 +500,7 @@ int main(int, char*[]) {
                 new TreeSwaptionEngine(modelBK, 50, Handle<YieldTermStructure>(), resultCalculator)));
             std::cout << "BK:              " << itmBermudanSwaption->NPV()
                 << std::endl;
-            printExerciseProbabilities(std::cout, *itmBermudanSwaption);
+            //printExerciseProbabilities(std::cout, *itmBermudanSwaption);
             //printGreekValues(std::cout, *itmBermudanSwaption);
         }
         double seconds = timer.elapsed();

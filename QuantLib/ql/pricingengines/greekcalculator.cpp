@@ -52,6 +52,50 @@ namespace QuantLib {
         calculating_ = false;
     }
 
+    void calculateDeltaAndGamma(
+        std::map<std::string, boost::any>& additionalResults,
+        const ShiftedQuote& shiftedQuote,
+        const boost::shared_ptr<Instrument>& instrument
+    ) {
+        double pv = instrument->NPV();
+        std::cout << "PV: " << pv;
+        //delta
+
+        double rate = shiftedQuote.quote_->value();
+        std::cout << "rate: " << rate << std::endl;
+
+        double rateUp = rate + shiftedQuote.shift_;
+        std::cout << "rate up: " << rateUp;
+
+        shiftedQuote.quote_->setValue(rateUp);
+        double pvUp = instrument->NPV();
+        std::cout << " upPV: " << pvUp << std::endl;
+
+        double rateDown = rate - shiftedQuote.shift_;
+        std::cout << "rate down: " << rateDown;
+        shiftedQuote.quote_->setValue(rateDown);
+        double pvDown = instrument->NPV();
+        std::cout << " Down PV: " << pvDown << std::endl;
+
+        double delta = (pvUp - pvDown) / (2.*shiftedQuote.shift_);
+        additionalResults["delta"] = delta;
+
+        //gamma
+        rateUp = rateUp + shiftedQuote.shift_;
+        shiftedQuote.quote_->setValue(rateUp);
+        pvUp = instrument->NPV();
+
+        rateDown = rateDown - shiftedQuote.shift_;
+        shiftedQuote.quote_->setValue(rateDown);
+        pvDown = instrument->NPV();
+
+        double gamma = (pvUp + 2.* pv- pvDown) / (4. * shiftedQuote.shift_ * shiftedQuote.shift_);
+
+        additionalResults["gamma"] = gamma;
+        //tidy up by setting things as they were.
+        shiftedQuote.quote_->setValue(rate);
+    }
+
     HullWhiteVegaCalculator::HullWhiteVegaCalculator(
         const ShiftedModel& model,
         const boost::shared_ptr<Instrument>& instrument
@@ -70,11 +114,14 @@ namespace QuantLib {
 
         params[0] = rate; params[1] = volUp;
         model_.model_->setParams(params);
+        model_.model_->update();
         instrument_->recalculate();
         double pvUp = instrument_->NPV();
 
         double volDown = vol - model_.shift_;
         params[1] = volDown;
+        model_.model_->setParams(params);
+        model_.model_->update();
         instrument_->recalculate();
         double pvDown = instrument_->NPV();
 
@@ -83,7 +130,41 @@ namespace QuantLib {
         //tidy up by setting things as they were.
         params[1] = vol;
         model_.model_->setParams(params);
+        model_.model_->update();
         calculating_ = false;
+    }
+
+    void calculateHullWhiteVega(
+        std::map<std::string, boost::any>& additionalResults,
+        const ShiftedModel& model,
+        const boost::shared_ptr<Instrument>& instrument
+    ) {
+        double pv = instrument->NPV();
+        //vega
+        double rate = model.model_->params()[0];
+        double vol = model.model_->params()[1];
+        double volUp = vol + model.shift_;
+        Array params(2);
+
+        params[0] = rate; params[1] = volUp;
+        model.model_->setParams(params);
+        model.model_->update();
+        instrument->recalculate();
+        double pvUp = instrument->NPV();
+
+        double volDown = vol - model.shift_;
+        params[1] = volDown;
+        model.model_->setParams(params);
+        model.model_->update();
+        instrument->recalculate();
+        double pvDown = instrument->NPV();
+
+        double delta = (pvUp - pvDown) / (2.*model.shift_);
+        additionalResults["vega"] = delta;
+        //tidy up by setting things as they were.
+        params[1] = vol;
+        model.model_->setParams(params);
+        model.model_->update();
     }
 
 }

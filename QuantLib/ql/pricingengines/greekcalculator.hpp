@@ -39,6 +39,13 @@ namespace QuantLib {
         const LabelledQuotes underliers_;
         boost::shared_ptr<Instrument> instrument_;
     };
+
+    void calculateDeltaAndGamma(
+        std::map<std::string, boost::any>& additionalResults,
+        const ShiftedQuote& shiftedQuote,
+        const boost::shared_ptr<Instrument>& instrument
+    );
+
     /**
      * This vol calculator is a bit of a hack.  This caters for instances where
      * we do not have a vol surface to calibrate to, and so
@@ -51,6 +58,11 @@ namespace QuantLib {
         ShiftedModel model_;
         boost::shared_ptr<Instrument> instrument_;
     };
+    void calculateHullWhiteVega(
+        std::map<std::string, boost::any>& additionalResults,
+        const ShiftedModel& model,
+        const boost::shared_ptr<Instrument>& instrument
+    );
 }
 
 
