@@ -137,15 +137,18 @@ namespace {
         calculateDeltaAndGamma(all_results, priceAndBump, swaption);
         calculateHullWhiteVega(all_results, volAndBump, swaption);
         result_map::const_iterator delta_ptr = all_results.find("delta");
+        result_map::const_iterator gamma_ptr = all_results.find("gamma");
         result_map::const_iterator vega_ptr = all_results.find("vega");
 
         QL_ASSERT(delta_ptr != all_results.end(), "Delta calculation not found.");
         QL_ASSERT(vega_ptr != all_results.end(), "Vega calculation not found.");
+        QL_ASSERT(gamma_ptr != all_results.end(), "Gamma calculation not found.");
 
         auto delta = boost::any_cast<double>(delta_ptr->second);
         auto vega = boost::any_cast<double>(vega_ptr->second);
+        auto gamma = boost::any_cast<double>(gamma_ptr->second);
 
-        out << "{delta: " << delta << ", vega: " << vega << "}" << std::endl;
+        out << "{delta: " << delta << ", vega: " << vega << ", gamma: " << gamma << "}" << std::endl;
     }
 
       inline std::vector<boost::shared_ptr<AdditionalResultCalculator> >
