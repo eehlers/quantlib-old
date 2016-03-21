@@ -141,21 +141,18 @@ namespace {
         result_map::const_iterator delta_ptr = all_results.find("delta");
         result_map::const_iterator gamma_ptr = all_results.find("gamma");
         result_map::const_iterator vega_ptr = all_results.find("vega");
+        //result_map::const_iterator parallel_vega_ptr = all_results.find("parallelvega");
 
         QL_ASSERT(delta_ptr != all_results.end(), "Delta calculation not found.");
         QL_ASSERT(vega_ptr != all_results.end(), "Vega calculation not found.");
         QL_ASSERT(gamma_ptr != all_results.end(), "Gamma calculation not found.");
 
         auto delta = boost::any_cast<double>(delta_ptr->second);
-        auto vega = boost::any_cast<std::vector<double> >(vega_ptr->second);
+        auto vega = boost::any_cast<Array>(vega_ptr->second);
         auto gamma = boost::any_cast<double>(gamma_ptr->second);
 
         out << "{delta: " << delta << ",  gamma: " << gamma << "}" << std::endl;
-        out << "vega: \n{";
-        for (size_t i = 0; i < vega.size() - 1; ++i) {
-            out << vega[i] << ", ";
-        }
-        out << vega[vega.size() - 1] << "}"<< std::endl;
+        out << "vega: " << vega << std::endl;
     }
 
       inline std::vector<boost::shared_ptr<AdditionalResultCalculator> >
@@ -368,8 +365,11 @@ int main(int, char*[]) {
         //Adjust to your own taste.
         const double deltaBump = 0.001;
         ShiftedQuote bumpAndPrice(deltaBump, flatRate);
-        const double vegaBump = 0.001;
-        ShiftedParameterCalibrator bumpAndVols(vegaBump, swaptionCalibrationHelpers,
+        const double vegaBump = 0.01;
+        boost::shared_ptr<PricingEngine> jamshidianEngine(
+        new JamshidianSwaptionEngine(modelHW));
+
+        ShiftedParameterCalibrator bumpAndVols(vegaBump, swaptionCalibrationHelpers, jamshidianEngine,
                                                calibrationVols, modelHW, optimizer, endCriteria);
 
         // Do the pricing for each model

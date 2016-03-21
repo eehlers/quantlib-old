@@ -5,6 +5,7 @@
 #include <ql/pricingengines/greekcalculator.hpp>
 #include <ql/discretizedasset.hpp>
 #include <iostream>
+#include <ql/models/shortrate/calibrationhelpers/swaptionhelper.hpp>
 
 
 namespace QuantLib {
@@ -52,37 +53,38 @@ namespace QuantLib {
         const ShiftedParameterCalibrator& shiftedVols,
         const boost::shared_ptr<Instrument>& instrument
     ) {
-        double pv = instrument->NPV();
-        std::vector<double> vega(shiftedVols.volQuotes_.size());
+        Array vega(shiftedVols.volQuotes_.size());
         for(size_t i = 0; i < shiftedVols.volQuotes_.size(); ++i) {
+            SwaptionHelper& helper = *(boost::dynamic_pointer_cast<SwaptionHelper>(shiftedVols.helpers_[i]));
+            helper.setPricingEngine(shiftedVols.engine_);
+
             boost::shared_ptr<SimpleQuote> volQuote = shiftedVols.volQuotes_[i];
             double vol = volQuote->value();
-            double volUp = vol + shiftedVols.shift_;
-            std::cout << "Model params: " << shiftedVols.model_->params() << std::endl;
+            double volUp = vol + shiftedVols.shift_ * vol;
             volQuote->setValue(volUp);
 
-            shiftedVols.model_->calibrate(shiftedVols.swaptionCalibrationHelpers_,
+            shiftedVols.model_->calibrate(shiftedVols.helpers_,
                                           *shiftedVols.optimizer_, shiftedVols.endCriteria_);
             shiftedVols.model_->update();
 
-            std::cout << "Model params: " << shiftedVols.model_->params() << std::endl;
-            instrument->recalculate();
             double pvUp = instrument->NPV();
 
-            double volDown = vol - shiftedVols.shift_;
+            double volDown = vol - shiftedVols.shift_ * vol;
             volQuote->setValue(volDown);
-            shiftedVols.model_->calibrate(shiftedVols.swaptionCalibrationHelpers_,
+
+            shiftedVols.model_->calibrate(shiftedVols.helpers_,
                                           *shiftedVols.optimizer_, shiftedVols.endCriteria_);
             shiftedVols.model_->update();
-            std::cout << "Model params: " << shiftedVols.model_->params() << std::endl;
 
-            instrument->recalculate();
             double pvDown = instrument->NPV();
 
             vega[i] = (pvUp - pvDown) / (2. * shiftedVols.shift_);
 
             //tidy up by setting vol to original value
             volQuote->setValue(vol);
+            shiftedVols.model_->calibrate(shiftedVols.helpers_,
+                                          *shiftedVols.optimizer_, shiftedVols.endCriteria_);
+            shiftedVols.model_->update();
         }
 
         additionalResults["vega"] = vega;

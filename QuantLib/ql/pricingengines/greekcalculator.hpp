@@ -27,16 +27,18 @@ namespace QuantLib {
     struct ShiftedParameterCalibrator {
         ShiftedParameterCalibrator(
             const double shift,
-            const std::vector<boost::shared_ptr<CalibrationHelper> > swaptionCalibrationHelpers,
+            const std::vector<boost::shared_ptr<CalibrationHelper> > helpers,
+            const boost::shared_ptr<PricingEngine>& engine,
             const std::vector<boost::shared_ptr<SimpleQuote> > volQuotes,
             const boost::shared_ptr<ShortRateModel>& model,
             const boost::shared_ptr<OptimizationMethod>& optimizer,
             const EndCriteria& endCriteria
-        ): shift_(shift), swaptionCalibrationHelpers_(swaptionCalibrationHelpers),
+        ): shift_(shift), helpers_(helpers), engine_(engine),
            volQuotes_(volQuotes), model_(model), optimizer_(optimizer), endCriteria_(endCriteria) {}
 
         double shift_;
-        std::vector<boost::shared_ptr<CalibrationHelper> > swaptionCalibrationHelpers_;
+        std::vector<boost::shared_ptr<CalibrationHelper> > helpers_;
+        boost::shared_ptr<PricingEngine> engine_;
         std::vector<boost::shared_ptr<SimpleQuote> > volQuotes_;
         boost::shared_ptr<ShortRateModel> model_;
         boost::shared_ptr<OptimizationMethod> optimizer_;
