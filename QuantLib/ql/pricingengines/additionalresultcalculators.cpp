@@ -57,7 +57,7 @@ namespace QuantLib {
         std::map<std::string, boost::any> result;
         //FIXME - this assumes our result maps are disjoint.  Implementer is encouraged
         //to ensure this.
-        for (const_iterator ptr = calculators_.cbegin(); ptr != calculators_.cend(); ++ptr) {
+        for (const_iterator ptr = calculators_.begin(); ptr != calculators_.end(); ++ptr) {
             result.insert((*ptr)->additionalResults().begin(), (*ptr)->additionalResults().end());
         }
 
@@ -67,7 +67,7 @@ namespace QuantLib {
     void CollectedResultCalculator::setupDiscretizedAsset(
         const boost::shared_ptr<DiscretizedAsset>& asset
     ) {
-        for (const_iterator ptr = calculators_.cbegin(); ptr != calculators_.cend(); ++ptr) {
+        for (const_iterator ptr = calculators_.begin(); ptr != calculators_.end(); ++ptr) {
             (*ptr)->setupDiscretizedAsset(asset);
         }
     }
@@ -75,7 +75,7 @@ namespace QuantLib {
     void CollectedResultCalculator::calculateAdditionalResults(
     ) {
         calculating_ = true;
-        for (const_iterator ptr = calculators_.cbegin(); ptr != calculators_.cend(); ++ptr) {
+        for (const_iterator ptr = calculators_.begin(); ptr != calculators_.end(); ++ptr) {
             (*ptr)->calculateAdditionalResults();
         }
         calculating_ = false;

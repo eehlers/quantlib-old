@@ -68,7 +68,8 @@ Size numCols = 5;
 
 Size treeTimeStepCount = 50;
 
-std::vector<Integer> swapLengths = {5,     4,     3,     2,     1 };
+std::vector<Integer> swapLengths(5u);
+
 Volatility swaptionVols[] = {
     0.1490, 0.1340, 0.1228, 0.1189, 0.1148,
     0.1290, 0.1201, 0.1146, 0.1108, 0.1040,
@@ -176,6 +177,8 @@ int main(int, char*[]) {
         Calendar calendar = TARGET();
         Date settlementDate(19, February, 2002);
         Settings::instance().evaluationDate() = todaysDate;
+
+		swapLengths[0] = 5; swapLengths[1] = 5; swapLengths[2] = 5; swapLengths[3] = 5; swapLengths[4] = 5;
 
         // flat yield term structure implying 1x5 swap at 5%
         boost::shared_ptr<SimpleQuote> flatRate(new SimpleQuote(0.04875825));
