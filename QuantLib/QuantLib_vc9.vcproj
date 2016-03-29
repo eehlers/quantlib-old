@@ -5839,6 +5839,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ql\pricingengines\greekcalculator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ql\pricingengines\greekcalculator.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ql\pricingengines\greeks.cpp"
 				>
 			</File>

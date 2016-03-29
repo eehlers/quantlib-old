@@ -148,9 +148,9 @@ namespace {
         QL_ASSERT(vega_ptr != all_results.end(), "Vega calculation not found.");
         QL_ASSERT(gamma_ptr != all_results.end(), "Gamma calculation not found.");
 
-        auto delta = boost::any_cast<double>(delta_ptr->second);
-        auto vega = boost::any_cast<Array>(vega_ptr->second);
-        auto gamma = boost::any_cast<double>(gamma_ptr->second);
+        /*auto*/double delta = boost::any_cast<double>(delta_ptr->second);
+        /*auto*/Array vega = boost::any_cast<Array>(vega_ptr->second);
+        /*auto*/double gamma = boost::any_cast<double>(gamma_ptr->second);
 
         out << "{delta: " << delta << ",  gamma: " << gamma << "}" << std::endl;
         out << "vega: " << vega << std::endl;
@@ -178,7 +178,7 @@ int main(int, char*[]) {
         Date settlementDate(19, February, 2002);
         Settings::instance().evaluationDate() = todaysDate;
 
-		swapLengths[0] = 5; swapLengths[1] = 5; swapLengths[2] = 5; swapLengths[3] = 5; swapLengths[4] = 5;
+		swapLengths[0] = 1; swapLengths[1] = 2; swapLengths[2] = 3; swapLengths[3] = 4; swapLengths[4] = 5;
 
         // flat yield term structure implying 1x5 swap at 5%
         boost::shared_ptr<SimpleQuote> flatRate(new SimpleQuote(0.04875825));
@@ -233,9 +233,11 @@ int main(int, char*[]) {
         }
 
         for (Size i = 0; i<numRows; i++) {
+            Size j = numCols - i -1; // 1x5, 2x4, 3x3, 4x2, 5x1
             swaptionCalibrationHelpers.push_back(boost::shared_ptr<CalibrationHelper>(new
                 SwaptionHelper(swaptionMaturities[i],
-                    Period(swapLengths[i], Years),// 1x5, 2x4, 3x3, 4x2, 5x1
+                    //Period(swapLengths[i], Years),// 1x5, 2x4, 3x3, 4x2, 5x1
+                    Period(swapLengths[j], Years),// 1x5, 2x4, 3x3, 4x2, 5x1
                     Handle<Quote>(calibrationVols[i]),
                     indexSixMonths,
                     indexSixMonths->tenor(),
@@ -390,7 +392,7 @@ int main(int, char*[]) {
             bermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
                 new TreeSwaptionEngine(modelHW, treeTimeStepCount, rhTermStructure, resultCalculator)));
             std::cout << "HW (tree):      " << bermudanSwaption->NPV() << std::endl;
-            //printExerciseProbabilities(std::cout, *bermudanSwaption);
+            printExerciseProbabilities(std::cout, *bermudanSwaption);
             printGreekValues(std::cout, bermudanSwaption, bumpAndPrice, bumpAndVols);
 
             bermudanSwaption->setPricingEngine(boost::shared_ptr<PricingEngine>(
